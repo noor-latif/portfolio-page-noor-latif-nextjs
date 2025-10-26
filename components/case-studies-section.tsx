@@ -19,21 +19,21 @@ const caseStudies: CaseStudy[] = [
   {
     id: "toyota",
     metric: "5-10 Min Deployment",
-    title: "Toyota IaC: Weeks to Minutes",
+    title: "Toyota Material Handling — IaC Framework",
     summary: "Framework that cut new system setup from weeks to minutes.",
     tags: ["IaC", "Docker", "SRE", "Linux SME"],
   },
   {
     id: "aqua-robur",
     metric: "60% Efficiency / 30% Energy Gain",
-    title: "Aqua Robur: Automation & Firmware Optimization",
+    title: "Aqua Robur Technologies — Automation & Firmware",
     summary: "Automated provisioning boosting efficiency and optimizing turbine firmware.",
     tags: ["Python Automation", "Embedded C/C++", "IoT", "OPC-UA"],
   },
   {
     id: "goteborgs-sparvagor",
     metric: "Critical Infra Maintained",
-    title: "Tram Network Infra & Scripted Provisioning",
+    title: "Göteborgs Spårvägar — Tram Network Infrastructure",
     summary: "Maintained critical IT infra (datacenter, PLCs) and scripted automatic firmware provisioning.",
     tags: ["Networking", "Linux/PLCs", "Scripting", "System Support"],
   },
@@ -46,7 +46,7 @@ export function CaseStudiesSection() {
     <section id="case-studies" className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold">Quantifiable Impact & Case Studies</h2>
+          <h2 className="text-4xl md:text-5xl font-bold">Projects & Case Studies</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Real-world projects with measurable results across automation, IoT, and infrastructure
           </p>

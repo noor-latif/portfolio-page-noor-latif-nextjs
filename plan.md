@@ -40,8 +40,12 @@ Next tasks
   - Acceptance: Lighthouse a11y score ≥ 95; keyboard-focusable controls; no color-contrast fails
 - [ ] TEST-3: Modal render smoke
   - Acceptance: Unit test mounts `AIAssistantModal` with a sample response and verifies markdown renders without runtime errors
-- [ ] DX-2: Protect `main`
-  - Acceptance: Branch protection enabled (require PR + passing checks); note settings in plan Changelog
+ - [x] NAV-1: Add sticky header with jump navigation
+   - Acceptance: Header with links to #hero, #skills, #case-studies; accessible skip link to main content; smooth scrolling
+ - [x] HERO-CTA-1: Recruiter AI CTA in hero
+   - Acceptance: Secondary CTA opens AI modal with preset recruiter prompts and follow-up; uses overview context
+ - [x] CONTENT-1: Rename case study titles
+   - Acceptance: Card titles reflect actual project names (Toyota Material Handling, Aqua Robur Technologies, Göteborgs Spårvägar); section heading remains "Case Studies" inclusive
 
 ## Testing Strategy
 - Unit (Vitest), E2E (Playwright). Keep fast: smoke first, expand as needed.
@@ -50,9 +54,10 @@ Next tasks
 - ErrorBoundary around markdown; API validation + streaming try/catch; avoid risky "latest" pins; smoke tests
 
 ## Quality Gates
-- PASS (local 2025-10-26): Build/Lint/Unit/E2E
-
-Timestamps will be added once checks are executed locally or in CI.
+- PASS (local 2025-10-26 23:24): Lint (eslint .)
+- PASS (local 2025-10-26 23:23): Unit (vitest run 3/3)
+- PASS (local 2025-10-26 23:24): E2E (playwright smoke 1/1)
+- PASS (local 2025-10-26 23:25): Build (next build)
 
 ## Milestones & Timeline (lightweight)
 - M1 (Today): PLAN-1, ENV-1, DOCS-1
@@ -72,20 +77,20 @@ Timestamps will be added once checks are executed locally or in CI.
 - Unoptimized images may affect LCP; consider Next/Image or placeholders
 
 ## Open Questions
-- Should type/ESLint errors fail builds on Vercel, or remain soft for velocity?
-- Preferred minimal test stack: Vitest only, or add Playwright for E2E?
 - Any additional projects/sections planned (blog, contact form, resume export)?
+Contact form and resume export sounds good.
 
 ## Changelog
 - 2025-10-26: Initial plan.
 - 2025-10-26: Lint/config hardening; branch strategy; CI PR‑only; local Quality Gates PASS.
+- 2025-10-26: Added sticky header with jump nav + skip link (NAV-1), Hero AI recruiter CTA with preset prompts (HERO-CTA-1), and renamed case study titles to project names; updated section heading (CONTENT-1). All gates PASS locally.
 
 ## References & Links
 - README: `README.md`
 - Key files: `app/page.tsx`, `app/api/ai-assistant/route.ts`, `components/ai-assistant-modal.tsx`, `app/globals.css`
 
 ## Handoff for Agent
-- Next Task: None required; continue with small improvements as needed
+- Next Task: Prompt user before continuing.
 - Blockers: AI requires a valid `GEMINI_API_KEY` set as Windows system env var
 - Last Quality Gates: Build/Lint/Unit/E2E all PASS (2025-10-26)
 - How to run (local):
