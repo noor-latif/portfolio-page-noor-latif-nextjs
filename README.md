@@ -1,6 +1,6 @@
-# Noor Latif — Portfolio (Local Only)
+# Noor Latif — Portfolio
 
-Next.js 16 + Tailwind CSS 4 portfolio with an AI “Deep Dive” assistant powered by Gemini. This repo is configured for local development and local-only deployment.
+Next.js 16 + Tailwind CSS 4 portfolio with an AI “Deep Dive” assistant powered by Gemini.
 
 ## Prerequisites
 
@@ -61,7 +61,7 @@ pnpm test:e2e:ui          # optional UI mode
 
 - The AI route (`/api/ai-assistant`) reads `process.env.GEMINI_API_KEY`. Ensure it’s set in Windows environment variables.
 - Path aliases (`@/*`) are configured in `tsconfig.json` and recognized by tests via `vitest.config.ts`.
-- Local-only: All cloud/live deploy links are intentionally removed.
+- Deployment: pushing to `main` auto-deploys via Vercel. Work on `dev`, promote via PR to `main` after CI passes.
 
 ## Contributing
 

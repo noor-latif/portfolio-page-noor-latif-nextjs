@@ -183,4 +183,4 @@ Timestamps will be added once checks are executed locally or in CI.
   - Install dependencies: `pnpm install`
   - Start dev server: `pnpm dev` then open http://localhost:3000
   - Lint: `pnpm lint`; Build: `pnpm build`
-- Deploy: Local-only (no cloud deploy configured in this plan)
+- Deploy: Vercel auto-deploys on push to `main`
