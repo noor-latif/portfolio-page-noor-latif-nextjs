@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev ]
   pull_request:
     branches: [ main ]
 
@@ -38,3 +38,6 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+  # Deploy job intentionally omitted to keep repo secret-free and avoid auto deploys.
+  # Optional: add a separate deploy.yml that triggers on push to main and calls a Vercel Deploy Hook.
