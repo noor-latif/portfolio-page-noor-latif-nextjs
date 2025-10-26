@@ -1,30 +1,73 @@
-# Portfolio for Noor Latif
+# Noor Latif — Portfolio (Local Only)
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+Next.js 16 + Tailwind CSS 4 portfolio with an AI “Deep Dive” assistant powered by Gemini. This repo is configured for local development and local-only deployment.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/noor-latifs-projects/v0-portfolio-for-noor-latif)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/DHmIj9Qhexp)
+## Prerequisites
 
-## Overview
+- Node.js 20 LTS or newer (recommended 20.11+)
+- pnpm 9+
+- Windows PowerShell (commands below are PowerShell-friendly)
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## Setup
 
-## Deployment
+1) Install dependencies
 
-Your project is live at:
+```powershell
+pnpm install
+```
 
-**[https://vercel.com/noor-latifs-projects/v0-portfolio-for-noor-latif](https://vercel.com/noor-latifs-projects/v0-portfolio-for-noor-latif)**
+2) Set the Windows system environment variable for the AI key (no .env file)
 
-## Build your app
+- Permanent (Windows): System Properties > Environment Variables > User variables > New…
+	- Name: GEMINI_API_KEY
+	- Value: your-api-key
+- Temporary for current PowerShell session only:
 
-Continue building your app on:
+```powershell
+$env:GEMINI_API_KEY = "your-api-key"
+```
 
-**[https://v0.app/chat/projects/DHmIj9Qhexp](https://v0.app/chat/projects/DHmIj9Qhexp)**
+3) Run the dev server
 
-## How It Works
+```powershell
+pnpm dev
+# open http://localhost:3000
+```
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## Scripts
+
+```powershell
+# Development
+pnpm dev
+
+# Lint
+pnpm lint
+
+# Build & Start
+pnpm build
+pnpm start
+
+# Unit tests (Vitest)
+pnpm test     # run once
+pnpm test:unit  # watch mode
+
+# E2E tests (Playwright)
+pnpm playwright:install   # one-time browser install
+pnpm test:e2e
+pnpm test:e2e:ui          # optional UI mode
+```
+
+## Notes
+
+- The AI route (`/api/ai-assistant`) reads `process.env.GEMINI_API_KEY`. Ensure it’s set in Windows environment variables.
+- Path aliases (`@/*`) are configured in `tsconfig.json` and recognized by tests via `vitest.config.ts`.
+- Local-only: All cloud/live deploy links are intentionally removed.
+
+## Contributing
+
+- Use Git and pnpm with descriptive commits.
+- Keep changes small and focused. Update `plan.md` and tests alongside code.
+
+## License
+
+Private; no external redistribution.

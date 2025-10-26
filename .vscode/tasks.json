@@ -1,0 +1,43 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Dev Server",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["dev"],
+      "problemMatcher": "$tsc-watch",
+      "group": "build"
+    },
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["build"],
+      "problemMatcher": ["$tsc"],
+      "group": "build"
+    },
+    {
+      "label": "Lint",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["lint"],
+      "problemMatcher": ["$eslint-stylish"],
+      "group": "test"
+    },
+    {
+      "label": "Test: Unit",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["test:unit"],
+      "group": "test"
+    },
+    {
+      "label": "Test: E2E",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["test:e2e"],
+      "group": "test"
+    }
+  ]
+}

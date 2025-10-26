@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -13,6 +13,29 @@ import { Send, Sparkles } from "lucide-react"
 interface AIAssistantModalProps {
   projectId: string | null
   onClose: () => void
+}
+
+class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; message?: string }> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false }
+  }
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, message: error?.message }
+  }
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    console.error("[AI Modal] Markdown render error:", error, info)
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-3 rounded border border-destructive/30 bg-destructive/10 text-xs text-destructive">
+          Failed to render response.
+        </div>
+      )
+    }
+    return this.props.children
+  }
 }
 
 const projectQuestions: Record<string, string[]> = {
@@ -293,9 +316,9 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                   )}
 
                   {response && !isLoading && (
-                    <div className="prose prose-invert prose-sm max-w-none">
-                      <ReactMarkdown
-                        className="text-xs sm:text-sm leading-relaxed break-words
+                    <ErrorBoundary>
+                      <div
+                        className="prose prose-invert prose-sm max-w-none text-xs sm:text-sm leading-relaxed break-words
                         [&>p]:mb-4 sm:[&>p]:mb-5 [&>p]:text-foreground/90 [&>p]:leading-relaxed
                         [&>ul]:mb-4 sm:[&>ul]:mb-5 [&>ul]:space-y-2 [&>ul>li]:text-foreground/90
                         [&>ol]:mb-4 sm:[&>ol]:mb-5 [&>ol]:space-y-2 [&>ol>li]:text-foreground/90
@@ -305,9 +328,9 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                         [&>strong]:text-[#00FFFF]/80 [&>strong]:font-semibold
                         [&>code]:text-[#00FFFF] [&>code]:bg-[#00FFFF]/10 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-xs"
                       >
-                        {response}
-                      </ReactMarkdown>
-                    </div>
+                        <ReactMarkdown>{response}</ReactMarkdown>
+                      </div>
+                    </ErrorBoundary>
                   )}
 
                   {!selectedQuestion && !isLoading && !error && (
