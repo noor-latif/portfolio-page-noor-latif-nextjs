@@ -7,7 +7,6 @@ import reactHooks from 'eslint-plugin-react-hooks'
 
 export default [
   {
-    files: ['**/*.{js,ts,tsx}'],
     ignores: [
       '*.config.*',
       'node_modules/',
@@ -17,6 +16,9 @@ export default [
       'coverage/',
       'playwright-report/',
     ],
+  },
+  {
+    files: ['**/*.{js,ts,tsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',

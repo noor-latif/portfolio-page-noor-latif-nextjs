@@ -1,6 +1,6 @@
-# Noor Latif — Portfolio (Local Only)
+# Noor Latif — Portfolio
 
-Next.js 16 + Tailwind CSS 4 portfolio with an AI “Deep Dive” assistant powered by Gemini. This repo is configured for local development and local-only deployment.
+Next.js 16 + Tailwind CSS 4 portfolio with an AI “Deep Dive” assistant powered by Gemini.
 
 ## Prerequisites
 
@@ -61,7 +61,7 @@ pnpm test:e2e:ui          # optional UI mode
 
 - The AI route (`/api/ai-assistant`) reads `process.env.GEMINI_API_KEY`. Ensure it’s set in Windows environment variables.
 - Path aliases (`@/*`) are configured in `tsconfig.json` and recognized by tests via `vitest.config.ts`.
-- Local-only: All cloud/live deploy links are intentionally removed.
+- Deployment: pushing to `main` auto-deploys via Vercel. Work on `dev`, promote via PR to `main` after CI passes.
 
 ## Contributing
 
@@ -71,11 +71,7 @@ pnpm test:e2e:ui          # optional UI mode
 ## Branch strategy (dev → main)
 
 - Do day-to-day work on `dev`. CI runs on pushes to `dev` and on PRs into `main`.
-- Promote by opening a PR from `dev` → `main`. Protect `main` in GitHub so CI must pass before merge.
-- Deploy from `main` using one of these options:
-	- Manual: disable Vercel Automatic Deployments; deploy from Vercel dashboard after merging.
-	- Deploy Hook: create a Production Deploy Hook in Vercel and add it to this repo as `VERCEL_PROD_HOOK_URL`. A small workflow can POST the hook after CI passes on `main`.
-	- Auto (guarded): allow Vercel auto-deploy on `main` only and enforce required checks on `main`.
+- Promote by opening a PR from `dev` → `main`. PR merge to main automatically deploys the website.
 
 ## License
 
