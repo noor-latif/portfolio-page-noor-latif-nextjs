@@ -155,10 +155,7 @@ Timestamps will be added once checks are executed locally or in CI.
 ## Branch strategy (dev → main)
 - Work on `dev`: all feature work and fixes target the `dev` branch. CI runs on pushes to `dev` and on PRs into `main`.
 - Promote via PR: open a PR from `dev` → `main`. Require CI to pass before merge (enable Branch Protection in GitHub → Branches).
-- Deploy from `main`: keep Vercel auto-deploy disabled for safety, or wire an optional Vercel Deploy Hook triggered by a separate workflow on `main` only.
-  - Option A (manual): disable Vercel Automatic Deployments; deploy from the Vercel dashboard after merging.
-  - Option B (hook): add repo secret `VERCEL_PROD_HOOK_URL` and a deploy workflow to POST the hook on `main` after CI passes.
-  - Option C (auto): restrict Vercel auto-deploy to `main` and protect `main` with required checks so only green builds deploy.
+- Deploy from `main`: Vercel auto-deploys when push to main.
 
 ## Risks, Assumptions, Constraints
 - Requires `GEMINI_API_KEY` as a Windows system env var
