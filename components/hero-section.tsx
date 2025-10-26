@@ -14,7 +14,13 @@ export function HeroSection() {
         {/* Profile Image */}
         <div className="flex justify-center mb-8">
           <div className="w-56 h-56 rounded-full overflow-hidden border-4 border-[#00FFFF] shadow-lg shadow-[#00FFFF]/20">
-            <img src="/noor-professional-headshot.png" alt="Noor Latif" className="w-full h-full object-cover" />
+            <img
+              src="/noor-professional-headshot.png"
+              alt="Noor Latif professional headshot"
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 
