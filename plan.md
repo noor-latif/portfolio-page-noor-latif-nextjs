@@ -80,41 +80,41 @@ Tooling
 
 ## Implementation Plan (Checklist)
 
-- [ ] PLAN-1: Create plan.md (this file)
+- [x] PLAN-1: Create plan.md (this file)
   - Acceptance: File added at repo root with all canonical sections; reviewed in PR
   - Dependencies: none
-- [ ] ENV-1: Configure Windows System Environment Variable `GEMINI_API_KEY`
+- [x] ENV-1: Configure Windows System Environment Variable `GEMINI_API_KEY`
   - Acceptance: API reads `process.env.GEMINI_API_KEY`; no `.env` file used
   - Dependencies: PLAN-1
-- [ ] DOCS-1: Update README for local-only workflow (no Vercel links)
+- [x] DOCS-1: Update README for local-only workflow (no Vercel links)
   - Acceptance: Windows-friendly commands; env setup documented; local deploy only
   - Dependencies: ENV-1
-- [ ] DX-1: Add VS Code tasks (Dev/Lint/Build) and problem matchers
+- [x] DX-1: Add VS Code tasks (Dev/Lint/Build) and problem matchers
   - Acceptance: One-click run from VS Code Tasks; outputs surface in Problems panel
   - Dependencies: PLAN-1
-- [ ] LINT-1: Minimal ESLint setup (flat config)
+- [x] LINT-1: Minimal ESLint setup (flat config)
   - Acceptance: `pnpm lint` runs cleanly with light rules; no blocking on build
   - Dependencies: DX-1
-- [ ] TEST-1: Unit tests (Vitest) for `lib/utils.ts` and API validation
+- [x] TEST-1: Unit tests (Vitest) for `lib/utils.ts` and API validation
   - Acceptance: `pnpm test` runs/passes; coverage on changed files > 60%
   - Dependencies: LINT-1
-- [ ] TEST-2: E2E tests (Playwright) for core journeys (home loads, AI modal opens)
+- [x] TEST-2: E2E tests (Playwright) for core journeys (home loads, AI modal opens)
   - Acceptance: `pnpm test:e2e` passes; home renders hero and sections; modal opens
   - Dependencies: DOCS-1
-- [ ] PERF-1: Add simple image optimization or placeholders (if needed) and measure LCP
+- [x] PERF-1: Add simple image optimization or placeholders (if needed) and measure LCP
   - Acceptance: Home LCP < 2.5s on desktop in local Lighthouse
   - Dependencies: none
-- [ ] A11Y-1: Quick accessibility pass (aria, focus order, contrast)
+- [x] A11Y-1: Quick accessibility pass (aria, focus order, contrast)
   - Acceptance: No critical Lighthouse a11y violations on home
   - Dependencies: none
-- [ ] API-1: Harden AI route (rate limiting and input size caps)
+- [x] API-1: Harden AI route (rate limiting and input size caps)
   - Acceptance: Excessive payloads rejected; basic rate limit returns 429 with retry guidance
   - Dependencies: ENV-1
-- [ ] CI-1: GitHub Actions for install/lint/typecheck/build/tests
+- [x] CI-1: GitHub Actions for install/lint/typecheck/build/tests
   - Acceptance: Green checks on PRs; failures block merges
   - Dependencies: LINT-1
-- [ ] GIT-1: Use Git + pnpm with descriptive commits
-  - Acceptance: Conventional-style or clear message format
+- [x] GIT-1: Use Git + pnpm with descriptive commits
+  - Acceptance: After each successful milestone, commit with a clear message (e.g., `feat|fix|chore(scope): summary`)
   - Dependencies: PLAN-1
 
 ## Testing Strategy
@@ -142,6 +142,16 @@ Timestamps will be added once checks are executed locally or in CI.
 - M2: DX-1, LINT-1, CI-1
 - M3: TEST-1, PERF-1, A11Y-1, API-1
 
+## Commit cadence (simple)
+- Commit after each successful milestone: PLAN-1, ENV-1, DOCS-1, DX-1, LINT-1, TEST-1, TEST-2, PERF-1, A11Y-1, API-1, CI-1
+- Keep commits small and descriptive; include “what” and optionally “why”
+- Recommended format: `type(scope): short summary`
+  - Examples:
+    - `chore(plan): add runtime error handling section`
+    - `fix(ai-modal): render markdown via wrapper to remove className error`
+    - `docs(readme): local-only setup and scripts`
+    - `test(e2e): add homepage smoke`
+
 ## Risks, Assumptions, Constraints
 - Requires `GEMINI_API_KEY` as a Windows system env var
 - `next.config.mjs` suppresses TS/ESLint errors; may hide issues
@@ -161,11 +171,11 @@ Timestamps will be added once checks are executed locally or in CI.
 - Key files: `app/page.tsx`, `app/api/ai-assistant/route.ts`, `components/ai-assistant-modal.tsx`, `app/globals.css`
 
 ## Handoff for Agent
-- Next Task: ENV-1 Add `.env.example` with `GEMINI_API_KEY`
-- Blockers: None for docs; AI requires a valid key to function locally
-- Last Quality Gates: Not yet run
+- Next Task: None required; continue with small improvements as needed
+- Blockers: AI requires a valid `GEMINI_API_KEY` set as Windows system env var
+- Last Quality Gates: Build/Lint/Unit/E2E all PASS (2025-10-26)
 - How to run (local):
   - Install dependencies: `pnpm install`
   - Start dev server: `pnpm dev` then open http://localhost:3000
   - Lint: `pnpm lint`; Build: `pnpm build`
-- Deploy: Vercel (connected; pushes to `main` trigger deploy)
+- Deploy: Local-only (no cloud deploy configured in this plan)
