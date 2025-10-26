@@ -177,12 +177,14 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
   const [error, setError] = useState<string | null>(null)
   const [customQuestion, setCustomQuestion] = useState<string>("")
 
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
-    setResponse("")
+    setResponse("") // reset when project changes
     setSelectedQuestion(null)
     setError(null)
     setCustomQuestion("")
   }, [projectId])
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const handleQuestionClick = async (question: string) => {
     setSelectedQuestion(question)
@@ -232,7 +234,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
       }
 
       setIsLoading(false)
-    } catch (err) {
+    } catch {
       setError("An error occurred while fetching the response.")
       setIsLoading(false)
     }
