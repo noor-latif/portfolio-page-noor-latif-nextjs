@@ -299,7 +299,12 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
 
                 <Separator className="bg-[#00FFFF]/10" />
 
-                <div className="min-h-[240px] sm:min-h-[320px] max-h-[400px] sm:max-h-[520px] overflow-y-auto rounded-xl bg-background/40 backdrop-blur-sm p-4 sm:p-7 border border-[#00FFFF]/10 custom-scrollbar">
+                <div
+                  className="min-h-[240px] sm:min-h-[320px] max-h-[400px] sm:max-h-[520px] overflow-y-auto rounded-xl bg-background/40 backdrop-blur-sm p-4 sm:p-7 border border-[#00FFFF]/10 custom-scrollbar"
+                  role="region"
+                  aria-live="polite"
+                  aria-busy={isLoading}
+                >
                   {isLoading && (
                     <div className="flex flex-col items-center justify-center py-12 sm:py-16 gap-3 sm:gap-4">
                       <Spinner className="w-8 h-8 sm:w-10 sm:h-10 text-[#00FFFF]" />
