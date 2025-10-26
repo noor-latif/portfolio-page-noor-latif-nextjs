@@ -1,0 +1,92 @@
+# Copilot Instructions (Plan-Driven Execution)
+
+Purpose
+- Execute work directly from the project’s plan.md created by “Planning Mode (Cursor‑style)”.
+- Keep progress, failures, and decisions synchronized back into plan.md. Do not rely on any external state files.
+
+On activation: load context
+- Read plan.md at the repository root.
+- Summarize the “Handoff for Agent” section:
+  - Next Task ID and title
+  - Current blockers and assumptions
+  - Last Quality Gates (Build/Lint/Test/Preview) with timestamps
+  - How to run: VS Code task labels or key commands
+  - Deploy target/context (if any)
+- If plan.md is missing, ask the user to run Planning Mode to generate it (or offer to scaffold a minimal plan.md and then proceed).
+
+Operating policy
+- Test-driven by default (TDD):
+  - For new work: write/update minimal tests first; expect them to fail; then implement the smallest change to pass; refactor after green.
+- Prefer VS Code’s built-in tooling:
+  - Use Tasks (tasks.json), the Testing panel, launch configs, and problem matchers when available.
+  - If tasks are missing, propose a minimal tasks.json scaffold aligned with the project’s stack.
+- Minimal diffs and stable IDs:
+  - Keep task IDs stable; mark [ ] → [x] when done; update acceptance criteria status.
+  - Append a succinct entry to the Changelog section per iteration rather than rewriting the entire plan.
+- Record outcomes:
+  - Update the Quality Gates section in plan.md after each run with PASS/FAIL and a timestamp.
+  - Include 1–3 key error excerpts (not entire logs).
+
+Execution loop
+1) Identify the Next Task from [plan.md](../plan.md) → clarify only true blockers.
+2) Adopt TDD for the task:
+   - Add/adjust the smallest test(s); run tests; confirm failure is expected.
+   - Implement a minimal fix; re-run tests; iterate to green.
+3) Run full Quality Gates:
+   - Build → Lint/Typecheck → Tests; update PASS/FAIL and timestamps.
+4) For milestone tasks with a green build:
+   - Attempt a preview deploy (local dev server, docker-compose, or hosted preview when configured).
+   - Run smoke tests (health, homepage, simple API call).
+   - Record Preview Deploy + Smoke Tests status in Quality Gates.
+5) Update plan.md:
+   - Mark task completion or partial progress.
+   - Note assumptions/decisions and add a brief Changelog entry.
+6) Propose and proceed to the next task unless user input is required.
+
+Error handling and self-correction
+- Sources of truth for errors:
+  - Terminal output, VS Code Problems panel, test runner output
+  - Local log files (e.g., logs/, stderr/stdout captures)
+  - CI artifacts if present
+- Self-correction loop:
+  1) Capture and summarize the failure and the most relevant error lines.
+  2) Propose the smallest viable fix with minimal side effects.
+  3) Apply the fix; re-run only relevant checks for fast feedback; if green, run full gates.
+  4) Update plan.md’s Quality Gates and Changelog.
+  5) After 2–3 targeted attempts, surface root-cause hypotheses and options; request guidance.
+
+Deploy cadence and smoke tests
+- Default: after significant milestones with green Build/Lint/Test, run a preview deploy and quick smoke tests.
+- Record deploy target/context, timestamp, and smoke test results in Quality Gates.
+- If no preview mechanism exists, propose a minimal one (e.g., dev server task or docker-compose).
+
+When to ask questions
+- Credentials/secrets, destructive actions, or ambiguous requirements that materially change scope.
+- Otherwise make 1–2 sensible assumptions, state them in plan.md’s Risks/Assumptions/Constraints, and continue.
+
+Safety and scope
+- Never exfiltrate secrets; avoid external network calls unless referenced by plan.md or explicitly requested.
+- Keep diffs minimal; do not reformat unrelated files; isolate changes per task.
+
+File locations and conventions
+- Plan: plan.md at repository root with sections:
+  - Implementation Plan (Checklist with stable IDs)
+  - Quality Gates (Build/Lint/Test/Preview with timestamps)
+  - Handoff for Agent (Next Task, blockers, how to run, deploy context)
+  - Changelog (brief, dated entries)
+- Logs: prefer logs/ and captured stderr/stdout files when needed.
+- CI/Tasks: respect existing tasks.json and CI configs; propose scaffolding only if missing.
+
+Monorepos
+- Use the plan.md at the repo root by default. If the plan references a specific package/app, run tasks from that subdirectory and note the scope in the Changelog entry.
+
+Quick start prompts (examples)
+- “Load plan.md, summarize Handoff for Agent, then run the first test step for the Next Task.”
+- “Run Build/Lint/Test via VS Code tasks, update Quality Gates with PASS/FAIL and timestamps, and share key errors.”
+- “Attempt a local preview deploy and run smoke tests; update Quality Gates and Changelog.”
+- “Apply a minimal fix for the current test failure, re-run targeted tests, then full gates if green; update plan.md.”
+
+Contract
+- Inputs: plan.md (Handoff for Agent, Implementation Plan, Quality Gates), repo tasks/configs, local logs/outputs.
+- Outputs: minimal code changes, updated plan.md (Quality Gates results, task status, Changelog), proposed next step.
+- Error modes: failing gates (Build/Lint/Test/Preview); missing tasks/configs; environment issues. Handle via the self-correction loop, then request guidance after limited attempts.
