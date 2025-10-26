@@ -130,10 +130,10 @@ Tooling
 - Fast feedback: dev logs in console, E2E smoke to catch regressions, keep fixes minimal
 
 ## Quality Gates
-- Build: PASS (2025-10-26) — Next 16 build succeeded; removed deprecated eslint config from `next.config.mjs`
-- Lint: PASS (2025-10-26) — Minimal ESLint (flat config) runs clean with light rules
-- Unit tests: PASS (2025-10-26) — Vitest 2 ran 3 tests (utils + API validation)
-- E2E tests: PASS (2025-10-26) — Playwright smoke test verified homepage sections
+- Build: PASS (2025-10-26, local) — Next 16 build succeeded
+- Lint: PASS (2025-10-26, local) — ESLint flat-config with top-level ignores
+- Unit tests: PASS (2025-10-26, local) — Vitest ran 3 tests (utils + API validation)
+- E2E tests: PASS (2025-10-26, local) — Playwright smoke test verified homepage sections
 
 Timestamps will be added once checks are executed locally or in CI.
 
