@@ -2,7 +2,7 @@
 
 ## Overview
 
-Local-first portfolio for Noor Latif built with Next.js 16 (App Router) and Tailwind CSS 4. It showcases measurable impact across DevOps, automation, and IoT, and includes an AI “Deep Dive” assistant.
+AI Augmented portfolio for Noor Latif built with Next.js 16 (App Router) and Tailwind CSS 4. It showcases measurable impact across DevOps, automation, and IoT, and includes an AI “Deep Dive” assistant.
 
 Key bits
 - Sections: Hero, Skills/Certifications, Case Studies, Footer
@@ -170,6 +170,7 @@ Timestamps will be added once checks are executed locally or in CI.
 
 ## Changelog
 - 2025-10-26: Initial plan.md created with end-to-end plan and tasks.
+- 2025-10-26: Lint/config hardening (flat-config ignores, removed .eslintignore), fixed minor lint issues (unused fonts, React types), added branch strategy (dev→main) and README updates, limited CI to PR/manual, Quality Gates PASS locally (Build/Lint/Unit/E2E).
 
 ## References & Links
 - README: `README.md`
