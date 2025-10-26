@@ -71,11 +71,7 @@ pnpm test:e2e:ui          # optional UI mode
 ## Branch strategy (dev → main)
 
 - Do day-to-day work on `dev`. CI runs on pushes to `dev` and on PRs into `main`.
-- Promote by opening a PR from `dev` → `main`. Protect `main` in GitHub so CI must pass before merge.
-- Deploy from `main` using one of these options:
-	- Manual: disable Vercel Automatic Deployments; deploy from Vercel dashboard after merging.
-	- Deploy Hook: create a Production Deploy Hook in Vercel and add it to this repo as `VERCEL_PROD_HOOK_URL`. A small workflow can POST the hook after CI passes on `main`.
-	- Auto (guarded): allow Vercel auto-deploy on `main` only and enforce required checks on `main`.
+- Promote by opening a PR from `dev` → `main`. PR merge to main automatically deploys the website.
 
 ## License
 
