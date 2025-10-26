@@ -1,9 +1,0 @@
-.next/
-out/
-dist/
-coverage/
-playwright-report/
-node_modules/
-.env*
-.vscode/
-.DS_Store
