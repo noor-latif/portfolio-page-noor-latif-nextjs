@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator"
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen pt-16">
       <HeroSection />
 
       <Separator className="bg-[#00FFFF]/50 h-px" />

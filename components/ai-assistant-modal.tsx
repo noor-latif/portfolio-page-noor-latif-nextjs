@@ -39,6 +39,11 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
 }
 
 const projectQuestions: Record<string, string[]> = {
+  overview: [
+    "Give me a concise 30-second pitch for a DevOps/SRE role.",
+    "Which of Noor's achievements best demonstrate SRE impact?",
+    "How does Noor's experience map to DevOps/Platform roles?",
+  ],
   toyota: [
     "What specific IaC tools were used?",
     "How did this improve team productivity?",
@@ -57,6 +62,10 @@ const projectQuestions: Record<string, string[]> = {
 }
 
 const projectTitles: Record<string, { title: string; description: string }> = {
+  overview: {
+    title: "Recruiter Overview & Role Fit",
+    description: "Quick AI brief tailored for recruiters and hiring managers: strengths, impact, and role alignment",
+  },
   toyota: {
     title: "Toyota IaC Framework Deep Dive",
     description: "Exploring the infrastructure automation that reduced deployment time by 95%",
@@ -72,6 +81,28 @@ const projectTitles: Record<string, { title: string; description: string }> = {
 }
 
 const projectContexts: Record<string, string> = {
+  overview: `# Noor Latif — DevOps & SRE Overview
+
+## Summary
+DevOps/SRE engineer with hands-on impact across infrastructure-as-code (IaC), CI/CD automation, and reliability.
+Reduced deployment from weeks to minutes at Toyota Material Handling by building an IaC framework and one-click environment setup. Automated provisioning and boosted production efficiency at Aqua Robur. Maintained critical public transport infrastructure at Göteborgs Spårvägar, including scripting firmware provisioning.
+
+## Highlights
+- IaC mindset (Docker, orchestration, infra automation)
+- CI/CD pipelines and developer productivity tooling
+- Linux/Windows server expertise; networking and troubleshooting
+- Python for automation and APIs; embedded C/C++ for firmware
+
+## Roles of Best Fit
+- DevOps Engineer, Platform Engineer, SRE, Infra Automation
+
+## Notable Achievements
+- Toyota: Weeks-to-minutes setup; portable, one-click test envs; Linux SME support
+- Aqua Robur: 60% production efficiency gain; 30% energy efficiency gain in firmware
+- Göteborgs Spårvägar: Critical infra maintenance; scripted automatic firmware provisioning
+
+## What to Ask
+Tailored prompts for recruiters and hiring managers to quickly gauge role fit, impact, and depth.`,
   toyota: `# Toyota Material Handling - System Support Engineer
 
 **Duration:** February 2023 - Present (2 years 9 months)
