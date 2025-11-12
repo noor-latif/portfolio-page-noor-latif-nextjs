@@ -1,6 +1,6 @@
 # Noor Latif — Portfolio
 
-Next.js 16 + Tailwind CSS 4 portfolio with an AI “Deep Dive” assistant powered by Gemini.
+Next.js 16 + Tailwind CSS 4 portfolio with an AI "Deep Dive" assistant powered by Mistral.
 
 ## Prerequisites
 
@@ -19,12 +19,12 @@ pnpm install
 2) Set the Windows system environment variable for the AI key (no .env file)
 
 - Permanent (Windows): System Properties > Environment Variables > User variables > New…
-	- Name: GEMINI_API_KEY
+	- Name: MISTRAL_API_KEY
 	- Value: your-api-key
 - Temporary for current PowerShell session only:
 
 ```powershell
-$env:GEMINI_API_KEY = "your-api-key"
+$env:MISTRAL_API_KEY = "your-api-key"
 ```
 
 3) Run the dev server
@@ -59,7 +59,7 @@ pnpm test:e2e:ui          # optional UI mode
 
 ## Notes
 
-- The AI route (`/api/ai-assistant`) reads `process.env.GEMINI_API_KEY`. Ensure it’s set in Windows environment variables.
+- The AI route (`/api/ai-assistant`) reads `process.env.MISTRAL_API_KEY`. Ensure it's set in Windows environment variables.
 - Path aliases (`@/*`) are configured in `tsconfig.json` and recognized by tests via `vitest.config.ts`.
 - Deployment: pushing to `main` auto-deploys via Vercel. Work on `dev`, promote via PR to `main` after CI passes.
 

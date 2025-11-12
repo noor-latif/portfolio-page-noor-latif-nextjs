@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai"
+import { Mistral } from "@mistralai/mistralai"
 
 // Simple in-memory rate limiter (per-process). Fine for local.
 const RATE_LIMIT_WINDOW_MS = 60_000
@@ -26,10 +26,50 @@ function checkRate(req: Request) {
   return { ok: true as const }
 }
 
-// Initialize Gemini API
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-})
+// Initialize Mistral API
+const MISTRAL_AGENT_ID = "ag_019a2af508ad7053a530f1a39d9acdf0"
+
+function _extract_text(obj: unknown): string | null {
+  /**Try a few shapes to extract text content from a streamed chunk.
+
+  The streaming iterator can yield different wrapper objects. This helper
+  tries several common patterns safely and returns a string or null.
+  */
+  if (obj === null || obj === undefined) {
+    return null
+  }
+
+  // If the object itself has a 'content' attribute that's a string
+  const objAny = obj as Record<string, unknown>
+  const c = objAny?.content
+  if (typeof c === "string") {
+    return c
+  }
+
+  // Sometimes content is on a nested 'data' attribute
+  const data = objAny?.data
+  if (data !== undefined && data !== null && data !== obj) {
+    const inner = _extract_text(data)
+    if (inner) {
+      return inner
+    }
+  }
+
+  // If the chunk is a (event, data) tuple or list-like
+  if (Array.isArray(obj) && obj.length >= 2) {
+    return _extract_text(obj[1])
+  }
+
+  // If content is a list of strings
+  if (Array.isArray(c)) {
+    const pieces = c.filter((p): p is string => typeof p === "string")
+    if (pieces.length > 0) {
+      return pieces.join("")
+    }
+  }
+
+  return null
+}
 
 export async function POST(request: Request) {
   try {
@@ -56,7 +96,7 @@ export async function POST(request: Request) {
 
     // <SRE> Input validation
     const body = await request.json()
-    const { project_id, question, context } = body
+    const { project_id, question, context, history } = body
 
     if (!project_id || !question || !context) {
       console.log("[v0] Invalid input: missing required fields")
@@ -70,6 +110,30 @@ export async function POST(request: Request) {
       return new Response("Invalid input: project_id, question, and context must be strings", {
         status: 400,
       })
+    }
+
+    // Validate history if provided
+    if (history !== undefined) {
+      if (!Array.isArray(history)) {
+        console.log("[v0] Invalid input: history must be an array")
+        return new Response("Invalid input: history must be an array", {
+          status: 400,
+        })
+      }
+      for (const msg of history) {
+        if (typeof msg !== "object" || msg === null) {
+          console.log("[v0] Invalid input: history items must be objects")
+          return new Response("Invalid input: history items must be objects with role and content", {
+            status: 400,
+          })
+        }
+        if (typeof msg.role !== "string" || typeof msg.content !== "string") {
+          console.log("[v0] Invalid input: history items must have role and content strings")
+          return new Response("Invalid input: history items must have role and content strings", {
+            status: 400,
+          })
+        }
+      }
     }
 
     // <SRE> Field length limits
@@ -87,30 +151,43 @@ export async function POST(request: Request) {
     }
 
     // Check if API key is configured
-    if (!process.env.GEMINI_API_KEY) {
-      console.log("[v0] GEMINI_API_KEY not configured")
-      return new Response("GEMINI_API_KEY environment variable is not set", {
+    if (!process.env.MISTRAL_API_KEY) {
+      console.log("[v0] MISTRAL_API_KEY not configured")
+      return new Response("MISTRAL_API_KEY environment variable is not set", {
         status: 500,
       })
     }
 
-    const prompt = `You are a professional technical analyst reviewing Noor Latif's engineering work. Answer the following question directly and professionally, without preambles or phrases like "Based on the context provided."
+    const client = new Mistral({ apiKey: process.env.MISTRAL_API_KEY })
 
-Project Context:
-${context}
+    // Build conversation inputs
+    const historyArray = Array.isArray(history) ? history : []
+    let inputs: Array<{ role: "user" | "assistant"; content: string }>
 
-Question: ${question}
+    if (historyArray.length === 0) {
+      // First message: include project context
+      inputs = [
+        {
+          role: "user" as const,
+          content: `Project Context:\n${context}\n\nQuestion: ${question}`,
+        },
+      ]
+    } else {
+      // Subsequent messages: use history + new question
+      inputs = [
+        ...historyArray.map((msg: { role: string; content: string }) => ({
+          role: msg.role as "user" | "assistant",
+          content: msg.content,
+        })),
+        { role: "user" as const, content: question },
+      ]
+    }
 
-Provide a clear, technical answer with specific details. Use markdown formatting for readability. Be direct and skip unnecessary introductions.`
+    console.log("[v0] Generating AI response with Mistral agent...")
 
-    console.log("[v0] Generating AI response with gemini-2.5-flash...")
-
-    const response = await ai.models.generateContentStream({
-      model: "gemini-2.5-flash",
-      contents: prompt,
-      config: {
-        temperature: 0.7,
-      },
+    const response = await client.beta.conversations.startStream({
+      inputs: inputs as unknown as string | Array<{ role: "user" | "assistant"; content: string }>,
+      agentId: MISTRAL_AGENT_ID,
     })
 
     // Create streaming response
@@ -119,8 +196,9 @@ Provide a clear, technical answer with specific details. Use markdown formatting
       async start(controller) {
         try {
           for await (const chunk of response) {
-            if (chunk.text) {
-              controller.enqueue(encoder.encode(chunk.text))
+            const text = _extract_text(chunk)
+            if (text) {
+              controller.enqueue(encoder.encode(text))
             }
           }
           controller.close()

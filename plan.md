@@ -12,18 +12,18 @@ AI-augmented portfolio (Next.js 16 + Tailwind 4) with an AI “Deep Dive” assi
 ## Requirements
 
 - Functional: sections render; AI modal streams; API validates inputs and errors sanely
-- Non-functional: fast (desktop LCP < 2.5s), a11y basics, secure env usage (Windows `GEMINI_API_KEY`), maintainable TS
+- Non-functional: fast (desktop LCP < 2.5s), a11y basics, secure env usage (Windows `MISTRAL_API_KEY`), maintainable TS
 
 ## Design / Architecture
 
 - App Router (`app/`), shadcn/ui components, Tailwind v4 styles
-- AI route: `app/api/ai-assistant/route.ts` → Google GenAI stream → modal accumulates → markdown render
+- AI route: `app/api/ai-assistant/route.ts` → Mistral AI agent stream → modal accumulates → markdown render
 - Config: minimal Next config; analytics via `@vercel/analytics`
 
 ## Tech Stack
 
 - Frontend: Next 16, React 19, TS 5, Tailwind 4, shadcn/ui, Lucide
-- Backend: Route Handlers + `@google/genai`
+- Backend: Route Handlers + `@mistralai/mistralai`
 - Tooling: ESLint (flat), Vitest, Playwright
 
 ## Implementation Plan
@@ -71,7 +71,7 @@ Next tasks
 - Work on `dev`; open PR to `main` for promotion; Vercel auto-deploys `main`
 
 ## Risks, Assumptions, Constraints
-- Requires `GEMINI_API_KEY` as a Windows system env var
+- Requires `MISTRAL_API_KEY` as a Windows system env var
 - `next.config.mjs` suppresses TS/ESLint errors; may hide issues
 - Streaming can be brittle; modal handles errors
 - Unoptimized images may affect LCP; consider Next/Image or placeholders
@@ -91,7 +91,7 @@ Contact form and resume export sounds good.
 
 ## Handoff for Agent
 - Next Task: Prompt user before continuing.
-- Blockers: AI requires a valid `GEMINI_API_KEY` set as Windows system env var
+- Blockers: AI requires a valid `MISTRAL_API_KEY` set as Windows system env var
 - Last Quality Gates: Build/Lint/Unit/E2E all PASS (2025-10-26)
 - How to run (local):
   - Install dependencies: `pnpm install`

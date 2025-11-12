@@ -47,7 +47,7 @@ export function Footer() {
 
           {/* Version Info */}
           <div className="text-sm font-mono text-muted-foreground">
-            Built with Next.js, Tailwind, & Gemini | V: 1.0.0
+            Built with Next.js, Tailwind, & Mistral | V: 1.0.0
           </div>
         </div>
       </div>
