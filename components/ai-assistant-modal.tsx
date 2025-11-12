@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -212,6 +212,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
   const [error, setError] = useState<string | null>(null)
   const [customQuestion, setCustomQuestion] = useState<string>("")
   const [streamingMessage, setStreamingMessage] = useState<string>("")
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
@@ -222,6 +223,17 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
     setStreamingMessage("")
   }, [projectId])
   /* eslint-enable react-hooks/set-state-in-effect */
+
+  // Auto-scroll to bottom when streaming or messages change
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      requestAnimationFrame(() => {
+        if (messagesEndRef.current) {
+          messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight
+        }
+      })
+    }
+  }, [streamingMessage, messages])
 
   const sendMessage = async (question: string) => {
     if (!question.trim() || isLoading) return
@@ -356,6 +368,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                 )}
 
                 <div
+                  ref={messagesEndRef}
                   className="flex-1 min-h-[240px] sm:min-h-[320px] max-h-[400px] sm:max-h-[520px] overflow-y-auto rounded-xl bg-background/40 backdrop-blur-sm p-4 sm:p-6 border border-[#00FFFF]/10 custom-scrollbar space-y-3 sm:space-y-4"
                   role="region"
                   aria-live="polite"
@@ -447,6 +460,9 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                       <p className="text-destructive text-xs sm:text-sm font-medium">{error}</p>
                     </div>
                   )}
+
+                  {/* Scroll anchor for auto-scrolling */}
+                  <div className="h-0" />
                 </div>
 
                 <div className="space-y-2 sm:space-y-3 pt-4 mt-4 border-t border-[#00FFFF]/10">
