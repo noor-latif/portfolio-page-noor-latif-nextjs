@@ -19,6 +19,7 @@ Developed embedded IoT solutions and provisioning automation at a high-growth st
 - Configured tag mappings and data transformations for various client systems
 
 ### Python Automation (60% Efficiency Gain)
+- Automated device provisioning with Python, accelerating production by 60% and eliminating manual errors
 - Automated device configuration processes with Python, increasing production efficiency by 60%
 - Eliminated manual errors in provisioning workflows
 - Developed scripts for bulk device configuration and testing
@@ -27,6 +28,7 @@ Developed embedded IoT solutions and provisioning automation at a high-growth st
 - Reduced human intervention in repetitive configuration tasks
 
 ### Embedded Systems Development
+- Built portable sensor-testing hardware with live diagnostic feedback
 - Developed portable sensor-tester with built-in display for manufacturing
 - Created stress testing procedures for level sensors with live results
 - Enabled real-time troubleshooting during manufacturing process
@@ -34,6 +36,7 @@ Developed embedded IoT solutions and provisioning automation at a high-growth st
 - Implemented display interface for immediate feedback to operators
 
 ### Firmware Optimization (30% Energy Improvement)
+- Optimized embedded C firmware, improving energy efficiency by 30%
 - Optimized turbine energy harvester firmware in embedded C/C++
 - Achieved 30% improvement in energy efficiency through algorithmic improvements
 - Analyzed power consumption patterns and identified optimization opportunities
@@ -42,24 +45,27 @@ Developed embedded IoT solutions and provisioning automation at a high-growth st
 - Validated improvements through extensive testing and measurement
 
 ### Security & Certificate Management
+- Automated certificate lifecycle management improving system security
 - Developed certificate upgrade processes for industrial systems
 - Strengthened security protocols for IoT device communication
 - Implemented secure boot and firmware verification processes
 - Ensured compliance with industrial security standards
 
 ### Mentorship & Knowledge Sharing
+- Mentored thesis students on firmware and IoT development
 - Mentored Chalmers University master's thesis students
 - Provided guidance on sensor development and IoT engineering practices
 - Shared industry best practices and real-world problem-solving approaches
 - Contributed to academic-industry collaboration
 
 ## Technical Stack
+- **Programming Languages:** Embedded C/C++, Python
 - **Industrial Protocols:** OPC-UA, KepServerEX
-- **Programming Languages:** Python (automation), Embedded C/C++ (firmware)
-- **IoT Technologies:** Sensor integration, industrial IoT systems
-- **SCADA/HMI:** Client system integration and configuration
-- **Hardware:** Sensor development, testing equipment design
-- **Security:** Certificate management, secure communication protocols
+- **SCADA/HMI:** SCADA, OPC-UA servers, KepServerEX API integrations
+- **IoT Technologies:** Sensor integration, industrial IoT systems, IoT Security
+- **Hardware:** Portable sensor-testing hardware, testing equipment design
+- **Operating Systems:** Linux
+- **Security:** Certificate lifecycle management, secure communication protocols
 
 ## Impact Metrics
 - **Production Efficiency:** 60% increase through automation
