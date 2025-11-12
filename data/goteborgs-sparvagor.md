@@ -4,7 +4,7 @@
 **Location:** Gothenburg, Västra Götaland County, Sweden
 
 ## Overview
-Maintained and configured IT infrastructure for Gothenburg's tram network, working with vehicle computers, surveillance systems, and industrial control systems in a live operational transport environment.
+Maintained IT infrastructure for Gothenburg's tram network, integrating embedded systems and IoT devices. Worked with vehicle computers, surveillance systems, and industrial control systems in a live operational transport environment.
 
 ## Key Responsibilities
 
@@ -41,7 +41,7 @@ Maintained and configured IT infrastructure for Gothenburg's tram network, worki
 
 ### Automation & Scripting
 - **Firmware Provisioning Automation:**
-  - Scripted automatic provisioning of firmware for live travel displays onboard trams
+  - Automated firmware deployment scripts for live travel display systems
   - Eliminated manual firmware update processes
   - Ensured consistent firmware versions across fleet
   - Reduced deployment time and human error
@@ -49,6 +49,7 @@ Maintained and configured IT infrastructure for Gothenburg's tram network, worki
 
 - **Deployment Automation:**
   - Automated deployment processes for critical transport infrastructure
+  - Prototyped robot automation scripts to modernize legacy operational processes
   - Developed scripts for bulk configuration updates
   - Implemented validation checks for automated deployments
   - Created logging and monitoring for automated processes
@@ -62,11 +63,11 @@ Maintained and configured IT infrastructure for Gothenburg's tram network, worki
 ## Technical Stack
 - **Operating Systems:** Linux, Windows Server
 - **Industrial Control:** PLC programming and configuration
-- **Networking:** Network equipment configuration, troubleshooting
-- **Scripting:** Bash, Python for automation
+- **Networking:** Network equipment configuration, troubleshooting, Industrial IoT
+- **Scripting:** Bash for automation
 - **Industrial IoT:** Real-time systems, embedded devices
 - **Video Systems:** Surveillance equipment and recording systems
-- **Firmware Management:** Automated provisioning and deployment
+- **Firmware Management:** Automated provisioning and deployment scripts
 
 ## Scale of Infrastructure
 - **Geographic Coverage:** Gothenburg's entire tram network
@@ -77,7 +78,8 @@ Maintained and configured IT infrastructure for Gothenburg's tram network, worki
 
 ## Impact & Achievements
 - **Reliability:** Maintained critical infrastructure for public transportation
-- **Automation:** Reduced manual firmware deployment effort
+- **Automation:** Automated firmware deployment scripts, reducing manual effort
+- **Infrastructure Upgrades:** Delivered infrastructure upgrades improving uptime and system monitoring
 - **Uptime:** Minimized service disruptions through proactive maintenance
 - **Safety:** Ensured surveillance and control systems remained operational
 - **Efficiency:** Streamlined maintenance processes through scripting
