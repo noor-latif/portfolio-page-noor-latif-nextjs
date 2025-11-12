@@ -15,8 +15,7 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@google/genai": "latest",
-    "@google/generative-ai": "0.24.1",
+    "@mistralai/mistralai": "latest",
     "@hookform/resolvers": "^3.10.0",
     "@modelcontextprotocol/sdk": "latest",
     "@radix-ui/react-accordion": "1.2.2",
