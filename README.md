@@ -5,67 +5,72 @@ Next.js 16 + Tailwind CSS 4 portfolio with an AI "Deep Dive" assistant powered b
 ## Prerequisites
 
 - Node.js 20 LTS or newer (recommended 20.11+)
-- pnpm 9+
-- Windows PowerShell (commands below are PowerShell-friendly)
+- Bun (latest version)
 
 ## Setup
 
 1) Install dependencies
 
-```powershell
-pnpm install
+```bash
+bun install
 ```
 
-2) Set the Windows system environment variable for the AI key (no .env file)
+2) Set up environment variables
 
-- Permanent (Windows): System Properties > Environment Variables > User variables > New…
-	- Name: MISTRAL_API_KEY
-	- Value: your-api-key
-- Temporary for current PowerShell session only:
+Create a `.env.local` file in the project root:
 
-```powershell
-$env:MISTRAL_API_KEY = "your-api-key"
+```bash
+MISTRAL_API_KEY=your-api-key
+```
+
+Alternatively, you can set it as an environment variable in your shell:
+
+```bash
+export MISTRAL_API_KEY="your-api-key"
 ```
 
 3) Run the dev server
 
-```powershell
-pnpm dev
+```bash
+bun dev
 # open http://localhost:3000
 ```
 
 ## Scripts
 
-```powershell
+```bash
 # Development
-pnpm dev
+bun dev
 
 # Lint
-pnpm lint
+bun lint
 
 # Build & Start
-pnpm build
-pnpm start
+bun build
+bun start
+
+# Type checking
+bun typecheck
 
 # Unit tests (Vitest)
-pnpm test     # run once
-pnpm test:unit  # watch mode
+bun test          # run once
+bun test:unit     # watch mode
 
 # E2E tests (Playwright)
-pnpm playwright:install   # one-time browser install
-pnpm test:e2e
-pnpm test:e2e:ui          # optional UI mode
+bun playwright:install   # one-time browser install
+bun test:e2e
+bun test:e2e:ui          # optional UI mode
 ```
 
 ## Notes
 
-- The AI route (`/api/ai-assistant`) reads `process.env.MISTRAL_API_KEY`. Ensure it's set in Windows environment variables.
+- The AI route (`/api/ai-assistant`) reads `process.env.MISTRAL_API_KEY`. Ensure it's set in your environment variables or `.env.local` file.
 - Path aliases (`@/*`) are configured in `tsconfig.json` and recognized by tests via `vitest.config.ts`.
 - Deployment: pushing to `main` auto-deploys via Vercel. Work on `dev`, promote via PR to `main` after CI passes.
 
 ## Contributing
 
-- Use Git and pnpm with descriptive commits.
+- Use Git and Bun with descriptive commits.
 - Keep changes small and focused. Update `plan.md` and tests alongside code.
 
 ## Branch strategy (dev → main)
