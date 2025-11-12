@@ -1,0 +1,161 @@
+---
+alwaysApply: true
+---
+
+# Tailwind CSS v4.0 & v4.1 Guidelines
+
+## Installation & Setup
+
+### Simplified Installation (v4.0)
+- Install: `npm i tailwindcss @tailwindcss/postcss`
+- PostCSS config: `plugins: ["@tailwindcss/postcss"]`
+- CSS import: `@import "tailwindcss";` (replaces `@tailwind` directives)
+- **Zero configuration required** - no `tailwind.config.js` needed
+- Automatic content detection - no `content` array configuration needed
+
+### Vite Plugin (Recommended for Vite projects)
+- Use `@tailwindcss/vite` plugin for better performance
+- Import: `import tailwindcss from "@tailwindcss/vite"`
+- Add to `vite.config.ts` plugins array
+
+## Configuration Changes (v4.0)
+
+### CSS-First Configuration
+- **No JavaScript config file** - configure directly in CSS using `@theme` directive
+- Design tokens are CSS variables, accessible via `var(--variable-name)`
+- Example:
+```css
+@theme {
+  --color-brand: #3b82f6;
+  --font-display: 'Inter', sans-serif;
+}
+```
+
+### Automatic Content Detection
+- Automatically scans all template files
+- Respects `.gitignore` automatically
+- Ignores binary files automatically
+- Manual addition: `@source "../path/to/files"`
+
+### Source Management (v4.1)
+- Ignore paths: `@source not "../path"`
+- Safelist utilities: `@source inline("flex", "grid")`
+
+## New Utilities & Features
+
+### Performance Improvements (v4.0)
+- Full builds: ~3.8x faster
+- Incremental rebuilds: ~8-100x faster
+- No-new-CSS builds: ~182x faster (microseconds)
+
+### Modern CSS Features (v4.0)
+- Uses cascade layers (`@layer`)
+- Registered custom properties (`@property`)
+- `color-mix()` for opacity adjustments
+- Logical properties (better RTL support)
+
+### Container Queries (v4.0)
+- Built-in support (no plugin needed)
+- `@container` class to mark containers
+- `@sm:`, `@md:`, `@lg:` variants for min-width
+- `@max-sm:`, `@max-md:` variants for max-width
+- Range queries: `@min-md:@max-xl:`
+
+### 3D Transforms (v4.0)
+- `rotate-x-*`, `rotate-y-*`, `rotate-z-*`
+- `translate-z-*`, `scale-z-*`
+- `perspective-*`, `perspective-origin-*`
+- `transform-3d` class required for 3D transforms
+
+### Gradients (v4.0)
+- `bg-linear-*` (renamed from `bg-gradient-*`)
+- Angle support: `bg-linear-45`
+- Color interpolation modifiers: `bg-linear-to-r/srgb`, `bg-linear-to-r/oklch`
+- New: `bg-conic-*` and `bg-radial-*` utilities
+- Works with `from-*`, `via-*`, `to-*` utilities
+
+### Text Shadows (v4.1)
+- `text-shadow-*` utilities
+- Apply text shadows directly via utility classes
+
+### Masking (v4.1)
+- `mask-*` utilities
+- Mask elements using images and gradients
+
+### Drop Shadows (v4.1)
+- Colored `drop-shadow-*` utilities
+- Enhanced shadow effects beyond box shadows
+
+### Text Wrapping (v4.1)
+- `overflow-wrap-*` utilities
+- Fine-grained control over text wrapping behavior
+
+### Alignment Enhancements (v4.1)
+- `items-baseline-last`, `self-baseline-last`
+- `safe` alignment utilities (keeps content visible in constrained spaces)
+
+### Input Device Targeting (v4.1)
+- `pointer-*` and `any-pointer-*` variants
+- Target specific input device types (mouse, touch, etc.)
+
+## New Variants
+
+### v4.0 Variants
+- `@starting-style` - `starting:` variant for enter/exit transitions
+- `not-*` - Negate any variant, selector, or media query
+- `open` - Now supports `:popover-open` as well as `:open`
+- `inert` - Style elements with `inert` attribute
+- `nth-*` - Target nth elements
+- `in-*` - Like `group-*` but without needing `group` class
+- `descendant` - Style all descendant elements
+
+### v4.1 Variants
+- `noscript` - Style elements when JavaScript is disabled
+- `user-valid` - Form validation state
+- `inverted-colors` - Detect inverted color scheme preference
+
+## Dynamic Utilities (v4.0)
+
+### No Arbitrary Values Needed
+- Spacing utilities (`px-*`, `mt-*`, `w-*`, `h-*`) accept any value
+- Grid columns: `grid-cols-15` works out of the box
+- Custom data attributes: `data-current:opacity-100` works without config
+
+### Color System
+- Modernized P3 color palette (oklch color space)
+- More vivid colors on modern displays
+- Backward compatible with v3 colors
+
+## Additional Utilities (v4.0)
+
+- `inset-shadow-*` and `inset-ring-*` - Up to 4 layers of box shadows
+- `field-sizing-*` - Auto-resizing textareas
+- `color-scheme-*` - Better scrollbar styling in dark mode
+- `font-stretch-*` - Variable font width control
+
+## Import Support (v4.0)
+
+- Built-in `@import` support (no `postcss-import` needed)
+- Bundle multiple CSS files natively
+- Faster than external plugins
+
+## Best Practices for Agents
+
+1. **Always use `@import "tailwindcss"` instead of `@tailwind` directives**
+2. **Use CSS-first configuration** - prefer `@theme` over JavaScript config
+3. **Leverage automatic content detection** - don't configure `content` unless necessary
+4. **Use new utilities** - prefer `bg-linear-*` over `bg-gradient-*`
+5. **Take advantage of dynamic utilities** - no need for arbitrary values for spacing
+6. **Use container queries** - no plugin needed, built-in support
+7. **Consider performance** - v4 is significantly faster, especially on incremental builds
+8. **Use Vite plugin** when working with Vite projects for best performance
+9. **Leverage CSS variables** - all design tokens are available as CSS variables
+10. **Use logical properties** - better RTL support automatically
+
+## Migration Notes
+
+- `tailwind.config.js` is optional - migrate to CSS-first config
+- `content` array not needed - automatic detection handles it
+- `bg-gradient-*` → `bg-linear-*` (renamed)
+- Container queries plugin no longer needed
+- Many arbitrary values no longer needed (use dynamic utilities)
