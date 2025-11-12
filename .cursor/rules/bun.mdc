@@ -1,0 +1,33 @@
+---
+alwaysApply: true
+---
+
+# Bun Package Manager Rules
+
+## Required Package Manager
+- **MUST use Bun** for all Node.js package management operations
+- **NEVER use npm, pnpm, or yarn** commands
+
+## Commands to Use
+
+### Installation
+- Use `bun install` (never `npm install`, `pnpm install`, or `yarn install`)
+- Use `bun add <package>` to add dependencies (never `npm install <package>`, `pnpm add <package>`, or `yarn add <package>`)
+- Use `bun add -d <package>` for dev dependencies (never `npm install --save-dev`, `pnpm add -D`, or `yarn add -D`)
+
+### Scripts
+- Run scripts with `bun run <script>` (never `npm run`, `pnpm run`, or `yarn run`)
+- For scripts defined in `package.json`, use `bun <script-name>`
+
+### Other Operations
+- Use `bun remove <package>` to remove packages (never `npm uninstall`, `pnpm remove`, or `yarn remove`)
+- Use `bun update` to update packages (never `npm update`, `pnpm update`, or `yarn upgrade`)
+
+## Package Lock Files
+- Use `bun.lockb` (Bun's lockfile format)
+- Do NOT commit `package-lock.json` (npm), `pnpm-lock.yaml` (pnpm), or `yarn.lock` (yarn)
+
+## Best Practices
+- Always verify Bun is installed: `bun --version`
+- When suggesting package installation or script execution, always use Bun commands
+- If npm/pnpm/yarn commands appear in code or documentation, suggest replacing them with Bun equivalents
