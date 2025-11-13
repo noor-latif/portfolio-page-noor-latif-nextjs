@@ -45,27 +45,35 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
 
 const projectQuestions: Record<string, string[]> = {
   overview: [
-    "How does Noor's Python-based IaC framework at Toyota demonstrate test infrastructure engineering skills?",
-    "What experience does Noor have with CI/CD pipelines and test automation?",
-    "How does Noor's embedded systems and firmware work relate to hardware test infrastructure?",
-    "Can you explain Noor's experience building and maintaining test environments?",
-    "How has Noor collaborated with firmware and hardware teams in previous roles?",
-    "What examples show Noor's ability to ensure test environment reliability and reproducibility?",
+    "How does your Python-based IaC framework at Toyota demonstrate test infrastructure engineering skills, and have you worked with test automation frameworks like pytest?",
+    "What experience do you have with CI/CD pipelines (GitLab CI, Azure DevOps, GitHub Actions) and analyzing test results or resolving test failures?",
+    "How does your work with portable sensor-testing hardware at Aqua Robur relate to building and maintaining hardware test rigs?",
+    "Can you explain your experience with Docker containerization, including cgroups and namespaces, for test environment infrastructure?",
+    "How does your embedded systems interfacing experience (sensors, PLCs, vehicle computers) apply to hardware test infrastructure?",
+    "What examples show your ability to ensure test environment reliability and reproducibility, like reducing setup from weeks to minutes?",
   ],
   toyota: [
-    "What specific IaC tools were used?",
-    "How did this improve team productivity?",
-    "What were the main technical challenges?",
+    "Did you use test automation frameworks like pytest with your Python-based IaC framework?",
+    "How did you integrate your test infrastructure with CI/CD pipelines (Azure DevOps), and do you have experience with GitLab CI?",
+    "What Docker containerization details did you work with (cgroups, namespaces, Docker Compose) for test environments?",
+    "How did you achieve test environment reproducibility, reducing setup from weeks to 5-10 minutes?",
+    "How did you monitor, analyze test results, and resolve test failures in your CI pipelines?",
+    "What made the one-click test environment setup possible on engineers' laptops?",
   ],
   "aqua-robur": [
-    "How was the 60% efficiency gain measured?",
-    "What firmware optimizations were made?",
-    "How does OPC-UA fit into the architecture?",
+    "How does your portable sensor-testing hardware relate to building hardware test rigs for embedded systems?",
+    "What embedded systems interfacing did you do when integrating sensors and testing firmware?",
+    "Did you use test automation frameworks (like pytest) with your Python automation for device provisioning?",
+    "Did you work with electronics lab tools (multimeters, oscilloscopes) during hardware development and testing?",
+    "How did your embedded C/C++ firmware optimization work relate to firmware testing infrastructure?",
+    "How did the live diagnostic feedback and real-time troubleshooting capabilities work in your testing hardware?",
   ],
   "goteborgs-sparvagor": [
-    "What critical systems were maintained?",
-    "How was firmware provisioning automated?",
-    "What was the scale of the infrastructure?",
+    "What hardware test infrastructure did you build or maintain for embedded devices like vehicle computers and PLCs?",
+    "How did you integrate CI/CD practices with your automated firmware deployment scripts for embedded systems?",
+    "What testing procedures or test rigs did you use for embedded systems in live operational environments?",
+    "How did you interface with embedded systems like PLCs and vehicle computers during maintenance and testing?",
+    "How did you maintain test infrastructure for critical systems without disrupting live tram services?",
   ],
 }
 
@@ -385,27 +393,6 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                 <p className="text-xs text-muted-foreground mt-1">Powered by Mistral & Next.js</p>
               </CardHeader>
               <CardContent className="flex flex-col pt-4 sm:pt-6 h-full">
-                {messages.length === 0 && (
-                  <div className="space-y-2 sm:space-y-3 mb-4">
-                    <p className="text-xs sm:text-sm font-medium text-foreground/80 mb-3 sm:mb-4">Suggested Questions:</p>
-                    {questions.map((question) => (
-                      <Button
-                        key={question}
-                        onClick={() => handleQuestionClick(question)}
-                        variant="outline"
-                        className="w-full justify-start text-left h-auto py-3 sm:py-4 px-4 sm:px-6 
-                          border-[#00FFFF]/20 hover:bg-[#00FFFF]/5 hover:border-[#00FFFF]/60 
-                          transition-all duration-200 text-xs sm:text-sm font-medium
-                          shadow-sm hover:shadow-md hover:shadow-[#00FFFF]/10
-                          whitespace-normal break-words leading-relaxed"
-                        disabled={isLoading}
-                      >
-                        {question}
-                      </Button>
-                    ))}
-                  </div>
-                )}
-
                 <div
                   ref={messagesEndRef}
                   className="flex-1 min-h-[240px] sm:min-h-[320px] max-h-[400px] sm:max-h-[520px] overflow-y-auto rounded-xl bg-background/40 backdrop-blur-sm p-4 sm:p-6 border border-[#00FFFF]/10 custom-scrollbar space-y-3 sm:space-y-4"
@@ -417,7 +404,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                     <div className="flex flex-col items-center justify-center py-12 sm:py-16 gap-2 sm:gap-3">
                       <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 text-[#00FFFF]/30" />
                       <p className="text-muted-foreground text-xs sm:text-sm text-center font-medium px-4">
-                        Select a question above to start the conversation
+                        Select a question below to start the conversation
                       </p>
                     </div>
                   )}
@@ -526,6 +513,27 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                     >
                       <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </Button>
+                  </div>
+                </div>
+
+                <div className="space-y-2 sm:space-y-3 pt-4 mt-4 border-t border-[#00FFFF]/10">
+                  <p className="text-xs sm:text-sm font-medium text-foreground/80 mb-3 sm:mb-4">Suggested Questions:</p>
+                  <div className="space-y-2 sm:space-y-3">
+                    {questions.map((question) => (
+                      <Button
+                        key={question}
+                        onClick={() => handleQuestionClick(question)}
+                        variant="outline"
+                        className="w-full justify-start text-left h-auto py-3 sm:py-4 px-4 sm:px-6 
+                          border-[#00FFFF]/20 hover:bg-[#00FFFF]/5 hover:border-[#00FFFF]/60 
+                          transition-all duration-200 text-xs sm:text-sm font-medium
+                          shadow-sm hover:shadow-md hover:shadow-[#00FFFF]/10
+                          whitespace-normal break-words leading-relaxed"
+                        disabled={isLoading}
+                      >
+                        {question}
+                      </Button>
+                    ))}
                   </div>
                 </div>
               </CardContent>
