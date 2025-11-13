@@ -271,14 +271,22 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
   }, [projectId])
   /* eslint-enable react-hooks/set-state-in-effect */
 
-  // Auto-scroll to bottom when streaming or messages change
+  // Smart auto-scroll: only scroll if user is near the bottom
   useEffect(() => {
     if (messagesEndRef.current) {
-      requestAnimationFrame(() => {
-        if (messagesEndRef.current) {
-          messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight
-        }
-      })
+      const container = messagesEndRef.current
+      const threshold = 100 // pixels from bottom
+      const isNearBottom =
+        container.scrollHeight - container.scrollTop - container.clientHeight < threshold
+
+      // Only auto-scroll if user is already near the bottom
+      if (isNearBottom) {
+        requestAnimationFrame(() => {
+          if (messagesEndRef.current) {
+            messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight
+          }
+        })
+      }
     }
   }, [streamingMessage, messages])
 
@@ -350,6 +358,16 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
   }
 
   const handleQuestionClick = async (question: string) => {
+    // Clear chat history to start fresh and avoid token accumulation
+    setMessages([])
+    setStreamingMessage("")
+    setError(null)
+    
+    // Scroll to top of messages container to focus the response area
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollTop = 0
+    }
+    
     await sendMessage(question)
   }
 
