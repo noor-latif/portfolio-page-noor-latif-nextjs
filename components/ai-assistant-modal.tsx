@@ -45,42 +45,40 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
 
 const projectQuestions: Record<string, string[]> = {
   overview: [
-    "How does your Python-based IaC framework at Toyota demonstrate test infrastructure engineering skills, and have you worked with test automation frameworks like pytest?",
-    "What experience do you have with CI/CD pipelines (GitLab CI, Azure DevOps, GitHub Actions) and analyzing test results or resolving test failures?",
-    "How does your work with portable sensor-testing hardware at Aqua Robur relate to building and maintaining hardware test rigs?",
-    "Can you explain your experience with Docker containerization, including cgroups and namespaces, for test environment infrastructure?",
-    "How does your embedded systems interfacing experience (sensors, PLCs, vehicle computers) apply to hardware test infrastructure?",
-    "What examples show your ability to ensure test environment reliability and reproducibility, like reducing setup from weeks to minutes?",
+    "What automation frameworks and tools have you used across your different roles?",
+    "How do you approach infrastructure automation and what's your experience with Infrastructure-as-Code?",
+    "Can you describe your experience with Docker and containerization in production environments?",
+    "What embedded systems and IoT projects have you worked on, and what were the key challenges?",
+    "How do you balance automation, reliability, and speed when building infrastructure solutions?",
   ],
   toyota: [
-    "Did you use test automation frameworks like pytest with your Python-based IaC framework?",
-    "How did you integrate your test infrastructure with CI/CD pipelines (Azure DevOps), and do you have experience with GitLab CI?",
-    "What Docker containerization details did you work with (cgroups, namespaces, Docker Compose) for test environments?",
-    "How did you achieve test environment reproducibility, reducing setup from weeks to 5-10 minutes?",
-    "How did you monitor, analyze test results, and resolve test failures in your CI pipelines?",
-    "What made the one-click test environment setup possible on engineers' laptops?",
+    "What technologies did you use to build the Python-based IaC framework?",
+    "How did you reduce deployment time from weeks to 5-10 minutes?",
+    "What challenges did you face when making the framework work both as a web app and offline tool?",
+    "How did you handle Docker orchestration and what improvements did you make?",
+    "What was your role as Linux subject matter expert and what kind of support did you provide?",
+    "How did you approach documentation and training for global engineering teams?",
   ],
   "aqua-robur": [
-    "How does your portable sensor-testing hardware relate to building hardware test rigs for embedded systems?",
-    "What embedded systems interfacing did you do when integrating sensors and testing firmware?",
-    "Did you use test automation frameworks (like pytest) with your Python automation for device provisioning?",
-    "Did you work with electronics lab tools (multimeters, oscilloscopes) during hardware development and testing?",
-    "How did your embedded C/C++ firmware optimization work relate to firmware testing infrastructure?",
-    "How did the live diagnostic feedback and real-time troubleshooting capabilities work in your testing hardware?",
+    "How did you achieve 60% efficiency improvement with Python automation for device provisioning?",
+    "What was involved in optimizing the embedded C/C++ firmware for 30% better energy efficiency?",
+    "Can you explain the portable sensor-testing hardware you built and how it worked?",
+    "What was your experience with OPC-UA servers and SCADA/HMI systems?",
+    "How did you approach security with certificate lifecycle management?",
   ],
   "goteborgs-sparvagor": [
-    "What hardware test infrastructure did you build or maintain for embedded devices like vehicle computers and PLCs?",
-    "How did you integrate CI/CD practices with your automated firmware deployment scripts for embedded systems?",
-    "What testing procedures or test rigs did you use for embedded systems in live operational environments?",
-    "How did you interface with embedded systems like PLCs and vehicle computers during maintenance and testing?",
-    "How did you maintain test infrastructure for critical systems without disrupting live tram services?",
+    "What was involved in automating firmware deployment for live travel display systems?",
+    "How did you ensure reliability when working with critical public transport infrastructure?",
+    "What types of embedded systems did you work with (PLCs, vehicle computers, etc.)?",
+    "How did you balance maintenance work with live operational requirements?",
+    "What scripting and automation did you implement for the tram network infrastructure?",
   ],
 }
 
 const projectTitles: Record<string, { title: string; description: string }> = {
   overview: {
-    title: "Test Infrastructure Engineer - Role Fit Assessment",
-    description: "AI-powered analysis of fit for Test Infrastructure Engineer roles: Python automation, CI/CD, embedded systems, and hardware test infrastructure",
+    title: "Career Overview & Technical Expertise",
+    description: "Exploring automation, infrastructure, IoT, and embedded systems experience across multiple industries",
   },
   toyota: {
     title: "Toyota IaC Framework Deep Dive",
@@ -97,64 +95,63 @@ const projectTitles: Record<string, { title: string; description: string }> = {
 }
 
 const projectContexts: Record<string, string> = {
-  overview: `# Noor Latif — Test Infrastructure Engineer Overview
+  overview: `# Noor Latif — Career Overview
 
 ## Summary
-Automation-driven engineer with hands-on impact across infrastructure-as-code (IaC), CI/CD automation, test environment infrastructure, and embedded systems. Built Python-based IaC framework at Toyota Material Handling reducing test environment setup from weeks to 5–10 minutes. Automated device provisioning at Aqua Robur with 60% efficiency gain. Automated firmware deployment scripts for live systems at Göteborgs Spårvägar.
+Automation-driven engineer with 2+ years of experience building infrastructure automation frameworks, embedded IoT systems, and DevOps pipelines in production environments. Certified Industrial IoT Developer specializing in automation and cloud-based DevOps. Cross-domain experience across infrastructure automation, CI/CD, and real-time systems integration.
 
-## Experience Mapping for Test Infrastructure Engineer Roles
+## Professional Background
 
-### Python & Test Automation
-- **Toyota**: Built Python-based Infrastructure-as-Code framework for test environments, reducing setup from weeks to 5–10 minutes
-- **Aqua Robur**: Automated device provisioning with Python, accelerating production by 60% and eliminating manual errors
-- **Portfolio**: Implemented CI/CD pipelines using GitHub Actions for automated deployment
-
-### CI/CD & Pipeline Integration
-- **Toyota**: Assisted with CI/CD pipeline troubleshooting, worked with Azure DevOps
-- **Portfolio**: GitHub Actions for automated deployment workflows
-- Experience with pipeline development, optimization, and result analysis
-
-### Test Infrastructure & Environment Setup
-- **Toyota**: Built IaC framework enabling engineers to spin up complete test environments on laptops with one-click simplicity
-- Delivered both as web app and offline tool for maximum flexibility
+### Infrastructure Automation & DevOps
+- **Toyota Material Handling**: Built Python-based IaC framework reducing environment setup from weeks to 5–10 minutes
 - Automated provisioning of Linux environments using Docker, Python, Bash, and PowerShell
-- Focused on test environment reliability and reproducibility
+- Delivered both as web app and offline tool for maximum flexibility
+- Enhanced Docker orchestration and CI/CD pipeline troubleshooting with Azure DevOps
+- Served as Linux subject matter expert supporting multi-OS systems
 
-### Embedded Systems & Firmware
-- **Aqua Robur**: Optimized embedded C/C++ firmware, improving energy efficiency by 30%
+### Embedded Systems & IoT
+- **Aqua Robur Technologies**: Optimized embedded C/C++ firmware, improving energy efficiency by 30%
+- Automated device provisioning with Python, accelerating production by 60%
 - Built portable sensor-testing hardware with live diagnostic feedback
-- **Göteborgs Spårvägar**: Automated firmware deployment scripts for live travel display systems
-- Experience with hardware-software integration and testing equipment
+- Managed OPC-UA servers and KepServerEX API integrations for SCADA/HMI systems
+- Automated certificate lifecycle management for IoT security
 
-### Hardware & Infrastructure
-- **Aqua Robur**: Built portable sensor-testing hardware, worked with industrial IoT systems
-- **Göteborgs Spårvägar**: Supported vehicle computers, PLCs, and network/video systems in real-time environments
-- Experience with hardware test infrastructure and embedded device integration
+### Critical Infrastructure
+- **Göteborgs Spårvägar**: Automated firmware deployment for live travel display systems
+- Maintained vehicle computers, PLCs, and network/video systems in real-time environments
+- Delivered infrastructure upgrades improving uptime and system monitoring
+- Worked with industrial IoT systems in live operational transport environment
 
-### Linux & Containerization
-- **Linux Expert**: Served as Linux subject matter expert, supporting multi-OS systems
-- **Docker**: Enhanced Docker orchestration and Bash scripts, created reusable Docker Compose configurations
-- **Infrastructure**: Automated provisioning, system reliability improvements, container best practices
+### Web Development & Full-Stack
+- **AI Portfolio Project**: Built Next.js web app with AI agent workflows and CI/CD pipelines
+- **Götalands Trafikskola**: Built full-stack web platform automating course management and payments
+- Implemented GitHub Actions and Vercel for automated deployment
 
-### Collaboration & Documentation
-- **Toyota**: Authored documentation and training resources, collaborated with engineering teams globally
-- **Aqua Robur**: Mentored thesis students on firmware and IoT development
-- Managed full project lifecycle from planning to delivery within Agile sprints
-
-## Key Technologies
-- **Languages**: Python, C++, C, Bash, PowerShell
-- **CI/CD**: GitHub Actions, Azure DevOps, CI/CD pipeline troubleshooting
-- **Infrastructure**: Docker, Linux (expert), IaC, container orchestration
-- **Embedded Systems**: Embedded C/C++, firmware optimization, hardware development
+## Core Competencies
+- **Languages**: C++, C, Python, C#, Bash, SQL, JavaScript
+- **Cloud & DevOps**: Docker, Azure DevOps, Oracle Cloud, GitHub Actions
+- **Infrastructure & IaC**: Python-based IaC, PowerShell automation, Linux provisioning
+- **Systems**: Linux (Expert), Windows Server
+- **Monitoring**: Grafana, ELK Stack
+- **Embedded Systems**: Embedded C/C++, firmware optimization, IoT security
 - **Industrial IoT**: OPC-UA, SCADA/HMI, PLCs, sensor integration
+- **Methodologies**: Agile (Scrum, Kanban), Sprint-based delivery
+
+## Education & Certifications
+- Higher Vocational Diploma in Industrial IoT Software Development (EC Utbildning, 2022)
+- Certified Industrial IoT Developer (Infrastructure & Automation focus)
+- Foundational C# with Microsoft
+- Key Courses: Embedded C++, Industrial Cloud Solutions, IT Security, Agile Project Methods
 
 ## Notable Achievements
-- **Toyota**: Weeks-to-minutes test environment setup; Python-based IaC framework; web app and offline tool delivery
-- **Aqua Robur**: 60% production efficiency gain through Python automation; 30% energy efficiency improvement in firmware
-- **Göteborgs Spårvägar**: Automated firmware deployment scripts for live systems; infrastructure upgrades improving uptime
+- Reduced deployment time from weeks to 5-10 minutes at Toyota
+- 60% production efficiency improvement through automation at Aqua Robur
+- 30% energy efficiency improvement in embedded firmware
+- Automated critical infrastructure for Gothenburg's public transport network
 
-## What to Ask
-Tailored prompts for recruiters and hiring managers to assess fit for Test Infrastructure Engineer roles, focusing on Python automation, CI/CD, embedded systems, hardware test infrastructure, and collaboration with firmware/hardware teams.`,
+## Languages & Availability
+- English (Fluent), Swedish (Native)
+- Available for relocation to Stockholm in 2026`,
   toyota: `# Toyota Material Handling - System Support Engineer
 
 **Duration:** February 2023 - Present (2 years 9 months)
