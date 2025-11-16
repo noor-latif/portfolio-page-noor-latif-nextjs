@@ -403,7 +403,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
 
         <div className="flex flex-col lg:grid lg:grid-cols-[42%_58%] gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8 overflow-y-auto max-h-[calc(95vh-120px)] sm:max-h-[calc(95vh-140px)] custom-scrollbar">
           <div className="space-y-4 sm:space-y-5 lg:order-2">
-            <Card className="glass-strong border-[#00FFFF]/20 shadow-lg shadow-[#00FFFF]/5">
+            <Card className="glass-strong border-[#00FFFF]/20 shadow-lg shadow-[#00FFFF]/5 font-[family-name:var(--font-inter)]">
               <CardHeader className="pb-4 sm:pb-5 border-b border-[#00FFFF]/10">
                 <CardTitle className="text-base sm:text-lg font-mono font-semibold text-[#00FFFF]/90">
                   AI Assistant
@@ -411,22 +411,34 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                 <p className="text-xs text-muted-foreground mt-1">Powered by Mistral & Next.js</p>
               </CardHeader>
               <CardContent className="flex flex-col pt-4 sm:pt-6 h-full">
+                {messages.length === 0 && (
+                  <div className="space-y-2 sm:space-y-3 mb-4">
+                    <p className="text-xs sm:text-sm font-medium text-foreground/80 mb-3 sm:mb-4">Suggested Questions:</p>
+                    {questions.map((question) => (
+                      <Button
+                        key={question}
+                        onClick={() => handleQuestionClick(question)}
+                        variant="outline"
+                        className="w-full justify-start text-left h-auto py-3 sm:py-4 px-4 sm:px-6 
+                          border-[#00FFFF]/20 hover:bg-[#00FFFF]/5 hover:border-[#00FFFF]/60 
+                          transition-all duration-200 text-xs sm:text-sm font-medium
+                          shadow-sm hover:shadow-md hover:shadow-[#00FFFF]/10
+                          whitespace-normal break-words leading-relaxed"
+                        disabled={isLoading}
+                      >
+                        {question}
+                      </Button>
+                    ))}
+                  </div>
+                )}
+
                 <div
                   ref={messagesEndRef}
-                  className="flex-1 min-h-[240px] sm:min-h-[320px] max-h-[400px] sm:max-h-[520px] overflow-y-auto rounded-xl bg-background/40 backdrop-blur-sm p-4 sm:p-6 border border-[#00FFFF]/10 custom-scrollbar space-y-3 sm:space-y-4"
+                  className="flex-1 min-h-[240px] sm:min-h-[320px] max-h-[400px] sm:max-h-[520px] overflow-y-auto rounded-xl bg-background/40 backdrop-blur-sm p-4 sm:p-6 border border-[#00FFFF]/10 custom-scrollbar space-y-3 sm:space-y-4 font-[family-name:var(--font-inter)]"
                   role="region"
                   aria-live="polite"
                   aria-busy={isLoading}
                 >
-                  {messages.length === 0 && !isLoading && !error && (
-                    <div className="flex flex-col items-center justify-center py-12 sm:py-16 gap-2 sm:gap-3">
-                      <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 text-[#00FFFF]/30" />
-                      <p className="text-muted-foreground text-xs sm:text-sm text-center font-medium px-4">
-                        Select a question below to start the conversation
-                      </p>
-                    </div>
-                  )}
-
                   {messages.map((message, index) => (
                     <div
                       key={index}
@@ -442,7 +454,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                         {message.role === "assistant" ? (
                           <ErrorBoundary>
                             <div
-                              className="prose prose-invert prose-sm max-w-none text-xs sm:text-sm leading-relaxed break-words
+                              className="prose prose-invert prose-sm max-w-none text-xs sm:text-sm leading-relaxed break-words font-[family-name:var(--font-inter)]
                               [&>p]:mb-3 sm:[&>p]:mb-4 [&>p]:text-foreground/90 [&>p]:leading-relaxed
                               [&>ul]:mb-3 sm:[&>ul]:mb-4 [&>ul]:space-y-1.5 [&>ul>li]:text-foreground/90
                               [&>ol]:mb-3 sm:[&>ol]:mb-4 [&>ol]:space-y-1.5 [&>ol>li]:text-foreground/90
@@ -469,7 +481,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                       <div className="max-w-[85%] sm:max-w-[75%] rounded-lg px-4 py-3 sm:px-5 sm:py-4 bg-background/60 border border-[#00FFFF]/20">
                         <ErrorBoundary>
                           <div
-                            className="prose prose-invert prose-sm max-w-none text-xs sm:text-sm leading-relaxed break-words
+                            className="prose prose-invert prose-sm max-w-none text-xs sm:text-sm leading-relaxed break-words font-[family-name:var(--font-inter)]
                             [&>p]:mb-3 sm:[&>p]:mb-4 [&>p]:text-foreground/90 [&>p]:leading-relaxed
                             [&>ul]:mb-3 sm:[&>ul]:mb-4 [&>ul]:space-y-1.5 [&>ul>li]:text-foreground/90
                             [&>ol]:mb-3 sm:[&>ol]:mb-4 [&>ol]:space-y-1.5 [&>ol>li]:text-foreground/90
