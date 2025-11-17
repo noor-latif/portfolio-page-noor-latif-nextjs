@@ -2,7 +2,7 @@ import { Mistral } from "@mistralai/mistralai"
 
 // Simple in-memory rate limiter (per-process). Fine for local.
 const RATE_LIMIT_WINDOW_MS = 60_000
-const RATE_LIMIT_MAX = 10
+const RATE_LIMIT_MAX = 3
 const rateMap = new Map<string, { count: number; reset: number }>()
 
 function getClientId(req: Request) {
@@ -11,23 +11,88 @@ function getClientId(req: Request) {
   return xf || ua || "local"
 }
 
-function checkRate(req: Request) {
+function checkRate(req: Request): {
+  ok: boolean
+  requiresCaptcha?: boolean
+  retryAfterMs?: number
+} {
   const key = getClientId(req)
   const now = Date.now()
   const rec = rateMap.get(key)
   if (!rec || now > rec.reset) {
     rateMap.set(key, { count: 1, reset: now + RATE_LIMIT_WINDOW_MS })
-    return { ok: true as const }
+    return { ok: true }
   }
   if (rec.count >= RATE_LIMIT_MAX) {
-    return { ok: false as const, retryAfterMs: rec.reset - now }
+    // After rate limit, require CAPTCHA
+    return {
+      ok: false,
+      requiresCaptcha: true,
+      retryAfterMs: rec.reset - now,
+    }
   }
   rec.count += 1
-  return { ok: true as const }
+  return { ok: true }
 }
 
 // Initialize Mistral API
 const MISTRAL_AGENT_ID = "ag_019a2af508ad7053a530f1a39d9acdf0"
+
+/**
+ * Verify Turnstile token with Cloudflare Siteverify API
+ * Reference: https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
+ */
+async function verifyTurnstileToken(
+  token: string | null,
+  ip: string | null
+): Promise<{ success: boolean; error?: string; errorCodes?: string[] }> {
+  if (!token) {
+    return { success: false, error: "Missing Turnstile token" }
+  }
+
+  if (!process.env.TURNSTILE_SECRET_KEY) {
+    console.warn("[Turnstile] Secret key not configured")
+    return { success: false, error: "Turnstile not configured" }
+  }
+
+  try {
+    // Use FormData as per Cloudflare API specification
+    const formData = new FormData()
+    formData.append("secret", process.env.TURNSTILE_SECRET_KEY)
+    formData.append("response", token)
+
+    // Include IP address if available (improves security)
+    if (ip) {
+      formData.append("remoteip", ip)
+    }
+
+    const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body: formData,
+    })
+
+    const outcome = await response.json()
+
+    // Check success field (boolean)
+    if (!outcome.success) {
+      const errorCodes = outcome["error-codes"] || []
+      console.log("[Turnstile] Verification failed:", errorCodes)
+      return {
+        success: false,
+        error: errorCodes.join(", ") || "Verification failed",
+        errorCodes,
+      }
+    }
+
+    return { success: true }
+  } catch (error) {
+    console.error("[Turnstile] Verification error:", error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Verification error",
+    }
+  }
+}
 
 function _extract_text(obj: unknown): string | null {
   /**Try a few shapes to extract text content from a streamed chunk.
@@ -76,15 +141,8 @@ export async function POST(request: Request) {
     // <SRE> Request logging
     console.log("[v0] Incoming AI assistant request")
 
-    // <SRE> Basic rate limiting
-    const rl = checkRate(request)
-    if (!rl.ok) {
-      console.log("[v0] Rate limit exceeded")
-      return new Response("Rate limit exceeded", {
-        status: 429,
-        headers: rl.retryAfterMs ? { "Retry-After": Math.ceil(rl.retryAfterMs / 1000).toString() } : {},
-      })
-    }
+    // <SRE> Extract IP address for Turnstile verification
+    const xf = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null
 
     // <SRE> Input size cap using content-length (best-effort)
     const len = Number(request.headers.get("content-length") || 0)
@@ -94,9 +152,94 @@ export async function POST(request: Request) {
       return new Response("Payload too large", { status: 413 })
     }
 
-    // <SRE> Input validation
+    // <SRE> Parse request body
     const body = await request.json()
-    const { project_id, question, context, history } = body
+    const { project_id, question, context, history, turnstileToken } = body
+
+    // <SRE> Basic rate limiting
+    const rl = checkRate(request)
+    if (!rl.ok) {
+      // If rate limit exceeded and no token provided, require CAPTCHA
+      if (rl.requiresCaptcha && !turnstileToken) {
+        console.log("[v0] Rate limit exceeded - CAPTCHA required")
+        return new Response(
+          JSON.stringify({
+            error: "Rate limit exceeded (3 requests per minute). Please complete the verification.",
+            requiresCaptcha: true,
+            retryAfter: rl.retryAfterMs ? Math.ceil(rl.retryAfterMs / 1000) : 60,
+          }),
+          {
+            status: 429,
+            headers: {
+              "Content-Type": "application/json",
+              ...(rl.retryAfterMs ? { "Retry-After": Math.ceil(rl.retryAfterMs / 1000).toString() } : {}),
+            },
+          }
+        )
+      }
+
+      // If token provided, verify it before processing
+      if (turnstileToken) {
+        const verification = await verifyTurnstileToken(turnstileToken, xf)
+        if (!verification.success) {
+          console.log("[v0] Invalid Turnstile token:", verification.error)
+          return new Response(
+            JSON.stringify({
+              error: "Invalid Turnstile token. Please complete the verification again.",
+              requiresCaptcha: true,
+            }),
+            {
+              status: 403,
+              headers: { "Content-Type": "application/json" },
+            }
+          )
+        }
+        // Token valid - increment count and allow this request (it counts toward rate limit)
+        const key = getClientId(request)
+        const rec = rateMap.get(key)
+        if (rec) {
+          rec.count += 1
+        }
+        console.log("[v0] Valid token provided, processing request")
+      } else {
+        // No token and rate limited
+        console.log("[v0] Rate limit exceeded")
+        return new Response(
+          JSON.stringify({
+            error: "Rate limit exceeded (3 requests per minute). Please complete the verification.",
+            requiresCaptcha: true,
+            retryAfter: rl.retryAfterMs ? Math.ceil(rl.retryAfterMs / 1000) : 60,
+          }),
+          {
+            status: 429,
+            headers: {
+              "Content-Type": "application/json",
+              ...(rl.retryAfterMs ? { "Retry-After": Math.ceil(rl.retryAfterMs / 1000).toString() } : {}),
+            },
+          }
+        )
+      }
+    }
+
+    // If under rate limit but token provided, verify it (optional verification)
+    if (turnstileToken) {
+      const verification = await verifyTurnstileToken(turnstileToken, xf)
+      if (!verification.success) {
+        console.log("[v0] Invalid Turnstile token:", verification.error)
+        return new Response(
+          JSON.stringify({
+            error: "Invalid Turnstile token. Please complete the verification again.",
+            requiresCaptcha: true,
+          }),
+          {
+            status: 403,
+            headers: { "Content-Type": "application/json" },
+          }
+        )
+      }
+    }
+
+    // <SRE> Input validation
 
     if (!project_id || !question || !context) {
       console.log("[v0] Invalid input: missing required fields")

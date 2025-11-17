@@ -4,11 +4,11 @@ import React, { useState, useEffect, useRef } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
 import { Spinner } from "@/components/ui/spinner"
 import { Input } from "@/components/ui/input"
 import ReactMarkdown from "react-markdown"
 import { Send, Sparkles } from "lucide-react"
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile"
 
 interface AIAssistantModalProps {
   projectId: string | null
@@ -256,7 +256,11 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
   const [error, setError] = useState<string | null>(null)
   const [customQuestion, setCustomQuestion] = useState<string>("")
   const [streamingMessage, setStreamingMessage] = useState<string>("")
+  const [showCaptcha, setShowCaptcha] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const captchaRef = useRef<TurnstileInstance>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const pendingQuestionRef = useRef<string | null>(null)
 
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
@@ -265,6 +269,9 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
     setError(null)
     setCustomQuestion("")
     setStreamingMessage("")
+    setShowCaptcha(false)
+    setCaptchaToken(null)
+    pendingQuestionRef.current = null
   }, [projectId])
   /* eslint-enable react-hooks/set-state-in-effect */
 
@@ -287,12 +294,15 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
     }
   }, [streamingMessage, messages])
 
-  const sendMessage = async (question: string) => {
+  const sendMessage = async (question: string, retryWithToken = false) => {
     if (!question.trim() || isLoading) return
 
-    // Add user message to history immediately
-    const userMessage: Message = { role: "user", content: question }
-    setMessages((prev) => [...prev, userMessage])
+    // Store question for retry
+    if (!retryWithToken) {
+      pendingQuestionRef.current = question
+      const userMessage: Message = { role: "user", content: question }
+      setMessages((prev) => [...prev, userMessage])
+    }
     setError(null)
     setIsLoading(true)
     setStreamingMessage("")
@@ -306,20 +316,51 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
           question,
           context: projectContexts[projectId || ""] || "",
           history: messages.map((msg) => ({ role: msg.role, content: msg.content })),
+          turnstileToken: captchaToken, // Include token if available
         }),
       })
 
       if (!res.ok) {
         if (res.status === 429) {
-          setError("Rate limit exceeded. Please try again later.")
+          const data = await res.json().catch(() => ({}))
+          if (data.requiresCaptcha) {
+            // Show Turnstile widget
+            setShowCaptcha(true)
+            setCaptchaToken(null) // Clear old token
+            setError(data.error || "Rate limit exceeded (3 requests per minute). Please complete the verification.")
+            // Don't remove message - keep it visible while user completes CAPTCHA
+          } else {
+            setError("Rate limit exceeded. Please try again later.")
+            // Remove message for non-CAPTCHA rate limit errors
+            if (!retryWithToken) {
+              setMessages((prev) => prev.slice(0, -1))
+            }
+          }
+        } else if (res.status === 403) {
+          // Invalid token - reset widget
+          const data = await res.json().catch(() => ({}))
+          setCaptchaToken(null)
+          setShowCaptcha(true)
+          if (captchaRef.current) {
+            captchaRef.current.reset()
+          }
+          setError(data.error || "Verification failed. Please try again.")
+          // Keep message visible - user can retry
         } else {
           setError("Failed to get response from AI assistant.")
+          // Remove message for other errors
+          if (!retryWithToken) {
+            setMessages((prev) => prev.slice(0, -1))
+          }
         }
         setIsLoading(false)
-        // Remove the user message if request failed
-        setMessages((prev) => prev.slice(0, -1))
         return
       }
+
+      // Clear token after successful use (single-use)
+      setCaptchaToken(null)
+      setShowCaptcha(false)
+      pendingQuestionRef.current = null
 
       const reader = res.body?.getReader()
       const decoder = new TextDecoder()
@@ -517,6 +558,41 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                   {/* Scroll anchor for auto-scrolling */}
                   <div className="h-0" />
                 </div>
+
+                {showCaptcha && (
+                  <div className="mb-4 p-4 rounded-lg border border-[#00FFFF]/20 bg-background/60">
+                    <p className="text-xs text-muted-foreground mb-3">
+                      Please complete the verification to continue
+                    </p>
+                    <Turnstile
+                      ref={captchaRef}
+                      siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                      onSuccess={(token) => {
+                        setCaptchaToken(token)
+                        setShowCaptcha(false)
+                        // Automatically retry the pending question with token
+                        if (pendingQuestionRef.current) {
+                          sendMessage(pendingQuestionRef.current, true)
+                        }
+                      }}
+                      onError={() => {
+                        setCaptchaToken(null)
+                        setError("Verification failed. Please try again.")
+                      }}
+                      onExpire={() => {
+                        setCaptchaToken(null)
+                        // Token expired, user needs to solve again
+                        if (captchaRef.current) {
+                          captchaRef.current.reset()
+                        }
+                      }}
+                      options={{
+                        theme: "dark",
+                        size: "normal",
+                      }}
+                    />
+                  </div>
+                )}
 
                 <div className="space-y-2 sm:space-y-3 pt-4 mt-4 border-t border-[#00FFFF]/10">
                   <div className="flex gap-2 sm:gap-3">
