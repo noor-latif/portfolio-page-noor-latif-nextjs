@@ -21,13 +21,22 @@ Create a `.env.local` file in the project root:
 
 ```bash
 MISTRAL_API_KEY=your-api-key
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=your-site-key
+TURNSTILE_SECRET_KEY=your-secret-key
 ```
 
-Alternatively, you can set it as an environment variable in your shell:
+Alternatively, you can set them as environment variables in your shell:
 
 ```bash
 export MISTRAL_API_KEY="your-api-key"
+export NEXT_PUBLIC_TURNSTILE_SITE_KEY="your-site-key"
+export TURNSTILE_SECRET_KEY="your-secret-key"
 ```
+
+**Security Note:** Never commit secrets or API keys to the repository. Keep all secrets in:
+- `.env.local` (for local development, already gitignored)
+- Vercel project settings (for production deployments)
+- Never in tracked files like `.md`, `.ts`, `.tsx`, or any committed files
 
 3) Run the dev server
 
@@ -71,7 +80,8 @@ bun test:e2e:ui          # optional UI mode
 ## Contributing
 
 - Use Git and Bun with descriptive commits.
-- Keep changes small and focused. Update `plan.md` and tests alongside code.
+- Keep changes small and focused. Update tests alongside code.
+- **Never commit secrets or API keys** - use environment variables only.
 
 ## Branch strategy (dev → main)
 
