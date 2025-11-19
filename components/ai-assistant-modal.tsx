@@ -449,27 +449,6 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                 <p className="text-xs text-muted-foreground mt-1">Powered by Mistral & Next.js</p>
               </CardHeader>
               <CardContent className="flex flex-col pt-4 sm:pt-6 h-full">
-                {messages.length === 0 && (
-                  <div className="space-y-2 sm:space-y-3 mb-4">
-                    <p className="text-xs sm:text-sm font-medium text-foreground/80 mb-3 sm:mb-4">Suggested Questions:</p>
-                    {questions.map((question) => (
-                      <Button
-                        key={question}
-                        onClick={() => handleQuestionClick(question)}
-                        variant="outline"
-                        className="w-full justify-start text-left h-auto py-3 sm:py-4 px-4 sm:px-6 
-                          border-[#00FFFF]/20 hover:bg-[#00FFFF]/5 hover:border-[#00FFFF]/60 
-                          transition-all duration-200 text-xs sm:text-sm font-medium
-                          shadow-sm hover:shadow-md hover:shadow-[#00FFFF]/10
-                          whitespace-normal break-words leading-relaxed"
-                        disabled={isLoading}
-                      >
-                        {question}
-                      </Button>
-                    ))}
-                  </div>
-                )}
-
                 <div
                   ref={messagesEndRef}
                   className="flex-1 min-h-[240px] sm:min-h-[320px] max-h-[400px] sm:max-h-[520px] overflow-y-auto rounded-xl bg-background/40 backdrop-blur-sm p-4 sm:p-6 border border-[#00FFFF]/10 custom-scrollbar space-y-3 sm:space-y-4 font-[family-name:var(--font-inter)]"
