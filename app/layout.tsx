@@ -6,6 +6,7 @@ import "./globals.css"
 
 import { Inter, Fira_Code, Tomorrow } from "next/font/google"
 import { Header } from "@/components/header"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const firaCode = Fira_Code({ subsets: ["latin"], variable: "--font-fira-code" })
@@ -27,15 +28,37 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('portfolio-theme');
+                  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  const shouldBeDark = theme === 'dark' || (theme === 'system' && systemPrefersDark) || (!theme && systemPrefersDark);
+                  if (shouldBeDark) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} ${tomorrow.variable} ${firaCode.variable} font-sans antialiased`}>
-        {/* Skip link for accessibility */}
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:bg-[#00FFFF] focus:text-black focus:px-3 focus:py-2 focus:rounded">
-          Skip to content
-        </a>
-        <Header />
-        {children}
-        <Analytics />
+        <ThemeProvider>
+          {/* Skip link for accessibility */}
+          <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:bg-nordic-accent focus:text-white focus:px-3 focus:py-2 focus:rounded">
+            Skip to content
+          </a>
+          <Header />
+          {children}
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )

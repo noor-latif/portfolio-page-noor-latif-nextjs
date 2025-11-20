@@ -16,7 +16,7 @@ export function HeroSection() {
       <div className="max-w-4xl mx-auto text-center space-y-8">
         {/* Profile Image */}
         <div className="flex justify-center mb-8">
-          <div className="w-56 h-56 rounded-full overflow-hidden border-4 border-[#00FFFF] shadow-lg shadow-[#00FFFF]/20">
+          <div className="w-56 h-56 rounded-full overflow-hidden border-4 border-nordic-accent shadow-lg shadow-nordic-accent/20">
             <img
               src="/noor-professional-headshot.png"
               alt="Noor Latif professional headshot"
@@ -31,7 +31,7 @@ export function HeroSection() {
         <h1 className="text-6xl md:text-7xl font-bold tracking-tight">Noor Latif</h1>
 
         {/* Tagline - Monospace */}
-        <h2 className="text-2xl md:text-3xl font-mono text-[#00FFFF] font-semibold">
+        <h2 className="text-2xl md:text-3xl font-mono text-nordic-accent font-semibold">
           Transforming deployment chaos into one-click automation
         </h2>
 
@@ -46,7 +46,7 @@ export function HeroSection() {
             <Button
               onClick={scrollToSkills}
               size="lg"
-              className="bg-[#00FFFF] text-black hover:bg-[#00FFFF]/90 font-semibold text-lg px-10 py-7 rounded-lg shadow-lg shadow-[#00FFFF]/30 hover:shadow-[#00FFFF]/50 transition-all duration-300 animate-pulse hover:animate-none group"
+              className="bg-nordic-accent text-white hover:bg-nordic-accent-hover font-semibold text-lg px-10 py-7 rounded-lg shadow-lg shadow-nordic-accent/30 hover:shadow-nordic-accent/50 transition-all duration-300 animate-pulse hover:animate-none group"
             >
               <span>Explore Impact & Results</span>
               <ArrowDown className="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform" />
@@ -55,7 +55,7 @@ export function HeroSection() {
               onClick={() => setShowOverview(true)}
               size="lg"
               variant="outline"
-              className="border-[#00FFFF]/60 text-[#00FFFF] hover:bg-[#00FFFF]/10 font-semibold text-lg px-10 py-7 rounded-lg"
+              className="border-nordic-accent/60 text-nordic-accent hover:bg-nordic-accent/10 font-semibold text-lg px-10 py-7 rounded-lg"
             >
               <Sparkles className="mr-2 w-5 h-5" />
               Ask AI about my fit

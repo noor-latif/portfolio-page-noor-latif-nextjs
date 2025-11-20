@@ -9,15 +9,15 @@ export default function Home() {
     <main id="main" className="min-h-screen pt-16">
       <HeroSection />
 
-      <Separator className="bg-[#00FFFF]/50 h-px" />
+      <Separator className="bg-nordic-accent/50 h-px" />
 
       <SkillsCertificationsSection />
 
-      <Separator className="bg-[#00FFFF]/50 h-px" />
+      <Separator className="bg-nordic-accent/50 h-px" />
 
       <CaseStudiesSection />
 
-      <Separator className="bg-[#00FFFF]/50 h-px" />
+      <Separator className="bg-nordic-accent/50 h-px" />
 
       <Footer />
     </main>

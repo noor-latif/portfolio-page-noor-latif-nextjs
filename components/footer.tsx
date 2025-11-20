@@ -12,10 +12,10 @@ export function Footer() {
               variant="ghost"
               size="icon"
               asChild
-              className="hover:bg-[#00FFFF]/10 hover:text-[#00FFFF] transition-all"
+              className="hover:bg-nordic-accent/10 hover:text-nordic-accent transition-all"
             >
               <a href="https://www.linkedin.com/in/noorlatif" target="_blank" rel="noopener noreferrer">
-                <Linkedin className="w-6 h-6 text-[#00FFFF]" />
+                <Linkedin className="w-6 h-6 text-nordic-accent" />
                 <span className="sr-only">LinkedIn</span>
               </a>
             </Button>
@@ -24,10 +24,10 @@ export function Footer() {
               variant="ghost"
               size="icon"
               asChild
-              className="hover:bg-[#00FFFF]/10 hover:text-[#00FFFF] transition-all"
+              className="hover:bg-nordic-accent/10 hover:text-nordic-accent transition-all"
             >
               <a href="mailto:noor@latif.se">
-                <Mail className="w-6 h-6 text-[#00FFFF]" />
+                <Mail className="w-6 h-6 text-nordic-accent" />
                 <span className="sr-only">Email</span>
               </a>
             </Button>
@@ -36,10 +36,10 @@ export function Footer() {
               variant="ghost"
               size="icon"
               asChild
-              className="hover:bg-[#00FFFF]/10 hover:text-[#00FFFF] transition-all"
+              className="hover:bg-nordic-accent/10 hover:text-nordic-accent transition-all"
             >
               <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                <Github className="w-6 h-6 text-[#00FFFF]" />
+                <Github className="w-6 h-6 text-nordic-accent" />
                 <span className="sr-only">GitHub</span>
               </a>
             </Button>

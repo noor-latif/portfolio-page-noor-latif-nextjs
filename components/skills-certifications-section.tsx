@@ -31,12 +31,12 @@ export function SkillsCertificationsSection() {
 
         <div className="grid md:grid-cols-3 gap-6">
           {/* Technical Skills Card */}
-          <div className="md:col-span-2 glass-strong rounded-2xl p-8 border border-[#00FFFF]/20 hover:border-[#00FFFF]/40 transition-all duration-300">
+          <div className="md:col-span-2 glass-strong rounded-2xl p-8 border border-nordic-accent/20 hover:border-nordic-accent/40 transition-all duration-300">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-[#00FFFF]/10">
-                <Code2 className="w-5 h-5 text-[#00FFFF]" />
+              <div className="p-2 rounded-lg bg-nordic-accent/10">
+                <Code2 className="w-5 h-5 text-nordic-accent" />
               </div>
-              <h3 className="text-2xl font-semibold text-[#00FFFF]">Technical Skills</h3>
+              <h3 className="text-2xl font-semibold text-nordic-accent">Technical Skills</h3>
             </div>
             <TooltipProvider>
               <div className="flex flex-wrap gap-3">
@@ -46,7 +46,7 @@ export function SkillsCertificationsSection() {
                       <TooltipTrigger>
                         <Badge
                           variant="secondary"
-                          className="text-sm py-2.5 px-4 bg-secondary/60 hover:bg-[#00FFFF]/20 hover:border-[#00FFFF] hover:scale-105 transition-all duration-200 cursor-help"
+                          className="text-sm py-2.5 px-4 bg-secondary/60 hover:bg-nordic-accent/20 hover:border-nordic-accent hover:scale-105 transition-all duration-200 cursor-help"
                         >
                           {skill.name}
                         </Badge>
@@ -59,7 +59,7 @@ export function SkillsCertificationsSection() {
                     <Badge
                       key={skill.name}
                       variant="secondary"
-                      className="text-sm py-2.5 px-4 bg-secondary/60 hover:bg-[#00FFFF]/20 hover:border-[#00FFFF] hover:scale-105 transition-all duration-200"
+                      className="text-sm py-2.5 px-4 bg-secondary/60 hover:bg-nordic-accent/20 hover:border-nordic-accent hover:scale-105 transition-all duration-200"
                     >
                       {skill.name}
                     </Badge>
@@ -70,40 +70,40 @@ export function SkillsCertificationsSection() {
           </div>
 
           {/* Certifications & Focus Card */}
-          <div className="glass-strong rounded-2xl p-8 border border-[#00FFFF]/20 hover:border-[#00FFFF]/40 transition-all duration-300 space-y-8">
+          <div className="glass-strong rounded-2xl p-8 border border-nordic-accent/20 hover:border-nordic-accent/40 transition-all duration-300 space-y-8">
             {/* Certifications */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-[#00FFFF]/10">
-                  <Award className="w-5 h-5 text-[#00FFFF]" />
+                <div className="p-2 rounded-lg bg-nordic-accent/10">
+                  <Award className="w-5 h-5 text-nordic-accent" />
                 </div>
-                <h3 className="text-xl font-semibold text-[#00FFFF]">Certifications</h3>
+                <h3 className="text-xl font-semibold text-nordic-accent">Certifications</h3>
               </div>
               <div className="space-y-4">
                 {certifications.map((cert) => (
                   <div key={cert} className="flex items-start gap-3 group">
-                    <div className="w-2 h-2 rounded-full bg-[#00FFFF] mt-2 flex-shrink-0 group-hover:scale-125 transition-transform" />
+                    <div className="w-2 h-2 rounded-full bg-nordic-accent mt-2 flex-shrink-0 group-hover:scale-125 transition-transform" />
                     <p className="text-sm leading-relaxed">{cert}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <Separator className="bg-[#00FFFF]/20" />
+            <Separator className="bg-nordic-accent/20" />
 
             {/* Focus Areas */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-[#00FFFF]/10">
-                  <Target className="w-5 h-5 text-[#00FFFF]" />
+                <div className="p-2 rounded-lg bg-nordic-accent/10">
+                  <Target className="w-5 h-5 text-nordic-accent" />
                 </div>
-                <h3 className="text-xl font-semibold text-[#00FFFF]">Focus Areas</h3>
+                <h3 className="text-xl font-semibold text-nordic-accent">Focus Areas</h3>
               </div>
               <div className="flex flex-wrap gap-3">
                 {focusTags.map((tag) => (
                   <Badge
                     key={tag}
-                    className="text-sm py-2.5 px-4 bg-[#00FFFF]/10 text-[#00FFFF] border-[#00FFFF]/50 hover:bg-[#00FFFF]/20 hover:scale-105 transition-all duration-200"
+                    className="text-sm py-2.5 px-4 bg-nordic-accent/10 text-nordic-accent border-nordic-accent/50 hover:bg-nordic-accent/20 hover:scale-105 transition-all duration-200"
                   >
                     {tag}
                   </Badge>

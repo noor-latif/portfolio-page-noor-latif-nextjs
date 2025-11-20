@@ -426,11 +426,11 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
 
   return (
     <Dialog open={!!projectId} onOpenChange={onClose}>
-      <DialogContent className="max-w-[98vw] sm:max-w-[95vw] lg:max-w-[1500px] max-h-[95vh] overflow-hidden p-0 bg-background/95 backdrop-blur-xl border-[#00FFFF]/20">
-        <DialogHeader className="px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8 lg:pt-10 pb-4 sm:pb-5 lg:pb-6 border-b border-[#00FFFF]/10">
+      <DialogContent className="max-w-[98vw] sm:max-w-[95vw] lg:max-w-[1500px] max-h-[95vh] overflow-hidden p-0 bg-background/95 backdrop-blur-xl border-nordic-accent/20">
+        <DialogHeader className="px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8 lg:pt-10 pb-4 sm:pb-5 lg:pb-6 border-b border-nordic-accent/10">
           <div className="flex items-center gap-2 sm:gap-3">
-            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#00FFFF] flex-shrink-0" />
-            <DialogTitle className="text-lg sm:text-2xl lg:text-3xl font-mono font-bold text-[#00FFFF] tracking-tight leading-tight text-balance">
+            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-nordic-accent flex-shrink-0" />
+            <DialogTitle className="text-lg sm:text-2xl lg:text-3xl font-mono font-bold text-nordic-accent tracking-tight leading-tight text-balance">
               {projectInfo.title}
             </DialogTitle>
           </div>
@@ -441,9 +441,9 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
 
         <div className="flex flex-col lg:grid lg:grid-cols-[42%_58%] gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8 overflow-y-auto max-h-[calc(95vh-120px)] sm:max-h-[calc(95vh-140px)] custom-scrollbar">
           <div className="space-y-4 sm:space-y-5 lg:order-2">
-            <Card className="glass-strong border-[#00FFFF]/20 shadow-lg shadow-[#00FFFF]/5 font-[family-name:var(--font-inter)]">
-              <CardHeader className="pb-4 sm:pb-5 border-b border-[#00FFFF]/10">
-                <CardTitle className="text-base sm:text-lg font-mono font-semibold text-[#00FFFF]/90">
+            <Card className="glass-strong border-nordic-accent/20 shadow-lg shadow-nordic-accent/5 font-[family-name:var(--font-inter)]">
+              <CardHeader className="pb-4 sm:pb-5 border-b border-nordic-accent/10">
+                <CardTitle className="text-base sm:text-lg font-mono font-semibold text-nordic-accent/90">
                   AI Assistant
                 </CardTitle>
                 <p className="text-xs text-muted-foreground mt-1">Powered by Mistral & Next.js</p>
@@ -451,7 +451,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
               <CardContent className="flex flex-col pt-4 sm:pt-6 h-full">
                 <div
                   ref={messagesEndRef}
-                  className="flex-1 min-h-[240px] sm:min-h-[320px] max-h-[400px] sm:max-h-[520px] overflow-y-auto rounded-xl bg-background/40 backdrop-blur-sm p-4 sm:p-6 border border-[#00FFFF]/10 custom-scrollbar space-y-3 sm:space-y-4 font-[family-name:var(--font-inter)]"
+                  className="flex-1 min-h-[240px] sm:min-h-[320px] max-h-[400px] sm:max-h-[520px] overflow-y-auto rounded-xl bg-background/40 backdrop-blur-sm p-4 sm:p-6 border border-nordic-accent/10 custom-scrollbar space-y-3 sm:space-y-4 font-[family-name:var(--font-inter)]"
                   role="region"
                   aria-live="polite"
                   aria-busy={isLoading}
@@ -464,8 +464,8 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                       <div
                         className={`max-w-[85%] sm:max-w-[75%] rounded-lg px-4 py-3 sm:px-5 sm:py-4 ${
                           message.role === "user"
-                            ? "bg-[#00FFFF]/10 border border-[#00FFFF]/30 text-foreground"
-                            : "bg-background/60 border border-[#00FFFF]/20 text-foreground"
+                            ? "bg-nordic-accent/10 border border-nordic-accent/30 text-foreground"
+                            : "bg-background/60 border border-nordic-accent/20 text-foreground"
                         }`}
                       >
                         {message.role === "assistant" ? (
@@ -475,11 +475,11 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                               [&>p]:mb-3 sm:[&>p]:mb-4 [&>p]:text-foreground/90 [&>p]:leading-relaxed
                               [&>ul]:mb-3 sm:[&>ul]:mb-4 [&>ul]:space-y-1.5 [&>ul>li]:text-foreground/90
                               [&>ol]:mb-3 sm:[&>ol]:mb-4 [&>ol]:space-y-1.5 [&>ol>li]:text-foreground/90
-                              [&>h1]:mb-2 sm:[&>h1]:mb-3 [&>h1]:text-[#00FFFF] [&>h1]:font-semibold [&>h1]:text-sm sm:[&>h1]:text-base
-                              [&>h2]:mb-2 sm:[&>h2]:mb-3 [&>h2]:text-[#00FFFF]/90 [&>h2]:font-semibold [&>h2]:text-xs sm:[&>h2]:text-sm
+                              [&>h1]:mb-2 sm:[&>h1]:mb-3 [&>h1]:text-nordic-accent [&>h1]:font-semibold [&>h1]:text-sm sm:[&>h1]:text-base
+                              [&>h2]:mb-2 sm:[&>h2]:mb-3 [&>h2]:text-nordic-accent/90 [&>h2]:font-semibold [&>h2]:text-xs sm:[&>h2]:text-sm
                               [&>h3]:mb-1.5 sm:[&>h3]:mb-2 [&>h3]:text-foreground [&>h3]:font-semibold [&>h3]:text-xs
-                              [&>strong]:text-[#00FFFF]/80 [&>strong]:font-semibold
-                              [&>code]:text-[#00FFFF] [&>code]:bg-[#00FFFF]/10 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-xs"
+                              [&>strong]:text-nordic-accent/80 [&>strong]:font-semibold
+                              [&>code]:text-nordic-accent [&>code]:bg-nordic-accent/10 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-xs"
                             >
                               <ReactMarkdown>{message.content}</ReactMarkdown>
                             </div>
@@ -495,26 +495,26 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
 
                   {streamingMessage && (
                     <div className="flex justify-start">
-                      <div className="max-w-[85%] sm:max-w-[75%] rounded-lg px-4 py-3 sm:px-5 sm:py-4 bg-background/60 border border-[#00FFFF]/20">
+                      <div className="max-w-[85%] sm:max-w-[75%] rounded-lg px-4 py-3 sm:px-5 sm:py-4 bg-background/60 border border-nordic-accent/20">
                         <ErrorBoundary>
                           <div
                             className="prose prose-invert prose-sm max-w-none text-xs sm:text-sm leading-relaxed break-words font-[family-name:var(--font-inter)]
                             [&>p]:mb-3 sm:[&>p]:mb-4 [&>p]:text-foreground/90 [&>p]:leading-relaxed
                             [&>ul]:mb-3 sm:[&>ul]:mb-4 [&>ul]:space-y-1.5 [&>ul>li]:text-foreground/90
                             [&>ol]:mb-3 sm:[&>ol]:mb-4 [&>ol]:space-y-1.5 [&>ol>li]:text-foreground/90
-                            [&>h1]:mb-2 sm:[&>h1]:mb-3 [&>h1]:text-[#00FFFF] [&>h1]:font-semibold [&>h1]:text-sm sm:[&>h1]:text-base
-                            [&>h2]:mb-2 sm:[&>h2]:mb-3 [&>h2]:text-[#00FFFF]/90 [&>h2]:font-semibold [&>h2]:text-xs sm:[&>h2]:text-sm
+                            [&>h1]:mb-2 sm:[&>h1]:mb-3 [&>h1]:text-nordic-accent [&>h1]:font-semibold [&>h1]:text-sm sm:[&>h1]:text-base
+                            [&>h2]:mb-2 sm:[&>h2]:mb-3 [&>h2]:text-nordic-accent/90 [&>h2]:font-semibold [&>h2]:text-xs sm:[&>h2]:text-sm
                             [&>h3]:mb-1.5 sm:[&>h3]:mb-2 [&>h3]:text-foreground [&>h3]:font-semibold [&>h3]:text-xs
-                            [&>strong]:text-[#00FFFF]/80 [&>strong]:font-semibold
-                            [&>code]:text-[#00FFFF] [&>code]:bg-[#00FFFF]/10 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-xs"
+                            [&>strong]:text-nordic-accent/80 [&>strong]:font-semibold
+                            [&>code]:text-nordic-accent [&>code]:bg-nordic-accent/10 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-xs"
                           >
                             <ReactMarkdown>{streamingMessage}</ReactMarkdown>
                           </div>
                         </ErrorBoundary>
                         <div className="flex items-center gap-1 mt-2">
-                          <div className="w-1.5 h-1.5 bg-[#00FFFF] rounded-full animate-pulse" />
-                          <div className="w-1.5 h-1.5 bg-[#00FFFF] rounded-full animate-pulse delay-75" />
-                          <div className="w-1.5 h-1.5 bg-[#00FFFF] rounded-full animate-pulse delay-150" />
+                          <div className="w-1.5 h-1.5 bg-nordic-accent rounded-full animate-pulse" />
+                          <div className="w-1.5 h-1.5 bg-nordic-accent rounded-full animate-pulse delay-75" />
+                          <div className="w-1.5 h-1.5 bg-nordic-accent rounded-full animate-pulse delay-150" />
                         </div>
                       </div>
                     </div>
@@ -522,8 +522,8 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
 
                   {isLoading && messages.length > 0 && !streamingMessage && (
                     <div className="flex justify-start">
-                      <div className="rounded-lg px-4 py-3 bg-background/60 border border-[#00FFFF]/20">
-                        <Spinner className="w-5 h-5 text-[#00FFFF]" />
+                      <div className="rounded-lg px-4 py-3 bg-background/60 border border-nordic-accent/20">
+                        <Spinner className="w-5 h-5 text-nordic-accent" />
                       </div>
                     </div>
                   )}
@@ -539,7 +539,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                 </div>
 
                 {showCaptcha && (
-                  <div className="mb-4 p-4 rounded-lg border border-[#00FFFF]/20 bg-background/60">
+                  <div className="mb-4 p-4 rounded-lg border border-nordic-accent/20 bg-background/60">
                     <p className="text-xs text-muted-foreground mb-3">
                       Please complete the verification to continue
                     </p>
@@ -573,7 +573,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                   </div>
                 )}
 
-                <div className="space-y-2 sm:space-y-3 pt-4 mt-4 border-t border-[#00FFFF]/10">
+                <div className="space-y-2 sm:space-y-3 pt-4 mt-4 border-t border-nordic-accent/10">
                   <div className="flex gap-2 sm:gap-3">
                     <Input
                       value={customQuestion}
@@ -585,20 +585,20 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                         }
                       }}
                       placeholder="Type your question here..."
-                      className="flex-1 bg-background/60 border-[#00FFFF]/20 focus:border-[#00FFFF]/60 transition-colors h-10 sm:h-11 text-xs sm:text-sm"
+                      className="flex-1 bg-background/60 border-nordic-accent/20 focus:border-nordic-accent/60 transition-colors h-10 sm:h-11 text-xs sm:text-sm"
                       disabled={isLoading}
                     />
                     <Button
                       onClick={handleCustomQuestion}
                       disabled={isLoading || !customQuestion.trim()}
-                      className="bg-[#00FFFF]/10 hover:bg-[#00FFFF]/20 border border-[#00FFFF]/30 hover:border-[#00FFFF]/60 text-[#00FFFF] h-10 sm:h-11 px-4 sm:px-5 transition-all"
+                      className="bg-nordic-accent/10 hover:bg-nordic-accent/20 border border-nordic-accent/30 hover:border-nordic-accent/60 text-nordic-accent h-10 sm:h-11 px-4 sm:px-5 transition-all"
                     >
                       <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </Button>
                   </div>
                 </div>
 
-                <div className="space-y-2 sm:space-y-3 pt-4 mt-4 border-t border-[#00FFFF]/10">
+                <div className="space-y-2 sm:space-y-3 pt-4 mt-4 border-t border-nordic-accent/10">
                   <p className="text-xs sm:text-sm font-medium text-foreground/80 mb-3 sm:mb-4">Suggested Questions:</p>
                   <div className="space-y-2 sm:space-y-3">
                     {questions.map((question) => (
@@ -607,9 +607,9 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                         onClick={() => handleQuestionClick(question)}
                         variant="outline"
                         className="w-full justify-start text-left h-auto py-3 sm:py-4 px-4 sm:px-6 
-                          border-[#00FFFF]/20 hover:bg-[#00FFFF]/5 hover:border-[#00FFFF]/60 
+                          border-nordic-accent/20 hover:bg-nordic-accent/5 hover:border-nordic-accent/60 
                           transition-all duration-200 text-xs sm:text-sm font-medium
-                          shadow-sm hover:shadow-md hover:shadow-[#00FFFF]/10
+                          shadow-sm hover:shadow-md hover:shadow-nordic-accent/10
                           whitespace-normal break-words leading-relaxed"
                         disabled={isLoading}
                       >
@@ -623,19 +623,19 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
           </div>
 
           <div className="space-y-4 lg:order-1">
-            <Card className="glass-strong border-[#00FFFF]/20 shadow-lg shadow-[#00FFFF]/5">
-              <CardHeader className="pb-5 border-b border-[#00FFFF]/10">
-                <CardTitle className="text-lg font-semibold text-[#00FFFF]/90">Project Context</CardTitle>
+            <Card className="glass-strong border-nordic-accent/20 shadow-lg shadow-nordic-accent/5">
+              <CardHeader className="pb-5 border-b border-nordic-accent/10">
+                <CardTitle className="text-lg font-semibold text-nordic-accent/90">Project Context</CardTitle>
               </CardHeader>
               <CardContent className="pt-6">
                 <div
                   className="prose prose-invert prose-sm max-w-none 
-                  [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:mb-5 [&>h1]:text-[#00FFFF] [&>h1]:leading-tight
-                  [&>h2]:text-lg [&>h2]:font-semibold [&>h2]:mb-4 [&>h2]:mt-7 [&>h2]:text-[#00FFFF]/90 [&>h2]:leading-snug
+                  [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:mb-5 [&>h1]:text-nordic-accent [&>h1]:leading-tight
+                  [&>h2]:text-lg [&>h2]:font-semibold [&>h2]:mb-4 [&>h2]:mt-7 [&>h2]:text-nordic-accent/90 [&>h2]:leading-snug
                   [&>h3]:text-base [&>h3]:font-semibold [&>h3]:mb-3 [&>h3]:mt-5 [&>h3]:text-foreground
                   [&>p]:mb-4 [&>p]:leading-relaxed [&>p]:text-muted-foreground
                   [&>ul]:mb-5 [&>ul]:space-y-2 [&>ul>li]:leading-relaxed [&>ul>li]:text-muted-foreground
-                  [&>strong]:text-[#00FFFF]/70 [&>strong]:font-semibold"
+                  [&>strong]:text-nordic-accent/70 [&>strong]:font-semibold"
                 >
                   <ReactMarkdown>{context}</ReactMarkdown>
                 </div>

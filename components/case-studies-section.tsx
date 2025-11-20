@@ -56,12 +56,12 @@ export function CaseStudiesSection() {
           {caseStudies.map((study) => (
             <Card
               key={study.id}
-              className="glass-strong border-[#00FFFF]/30 hover:border-[#00FFFF] transition-all duration-300 hover:shadow-lg hover:shadow-[#00FFFF]/20 flex flex-col"
+              className="glass-strong border-nordic-accent/30 hover:border-nordic-accent transition-all duration-300 hover:shadow-lg hover:shadow-nordic-accent/20 flex flex-col"
             >
               <CardHeader>
                 {/* Prominent Metric */}
-                <div className="mb-4 p-4 rounded-lg bg-[#00FFFF]/10 border border-[#00FFFF]/30">
-                  <p className="text-3xl font-mono font-bold text-[#00FFFF] text-center leading-tight">
+                <div className="mb-4 p-4 rounded-lg bg-nordic-accent/10 border border-nordic-accent/30">
+                  <p className="text-3xl font-mono font-bold text-nordic-accent text-center leading-tight">
                     {study.metric}
                   </p>
                 </div>
@@ -74,7 +74,7 @@ export function CaseStudiesSection() {
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2">
                   {study.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs border-[#00FFFF]/50 text-[#00FFFF]">
+                    <Badge key={tag} variant="outline" className="text-xs border-nordic-accent/50 text-nordic-accent">
                       {tag}
                     </Badge>
                   ))}
@@ -83,7 +83,7 @@ export function CaseStudiesSection() {
                 {/* AI Assistant Button */}
                 <Button
                   onClick={() => setSelectedProject(study.id)}
-                  className="w-full bg-[#00FFFF] text-black hover:bg-[#00FFFF]/90 font-semibold transition-all group"
+                  className="w-full bg-nordic-accent text-white hover:bg-nordic-accent-hover font-semibold transition-all group"
                 >
                   <Sparkles className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform" />
                   Deep Dive with AI
