@@ -1,0 +1,42 @@
+
+C:\Dev\portfolio-page-noor-latif-nextjs\components\case-studies-section.tsx
+   52:84  error  Comments inside children section of tag should be placed inside braces  react/jsx-no-comment-textnodes
+  100:45  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`         react/no-unescaped-entities
+  100:56  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`         react/no-unescaped-entities
+
+C:\Dev\portfolio-page-noor-latif-nextjs\components\experience-section.tsx
+   4:41  error  'CardTitle' is defined but never used                                   @typescript-eslint/no-unused-vars
+   5:20  error  'Calendar' is defined but never used                                    @typescript-eslint/no-unused-vars
+  67:94  error  Comments inside children section of tag should be placed inside braces  react/jsx-no-comment-textnodes
+  73:44  error  'index' is defined but never used                                       @typescript-eslint/no-unused-vars
+
+C:\Dev\portfolio-page-noor-latif-nextjs\components\header.tsx
+  15:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Dev\portfolio-page-noor-latif-nextjs\components\header.tsx:15:5
+  13 |
+  14 |   useEffect(() => {
+> 15 |     setMounted(true)
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  16 |   }, [])
+  17 |
+  18 |   useEffect(() => {  react-hooks/set-state-in-effect
+
+C:\Dev\portfolio-page-noor-latif-nextjs\components\hero-section.tsx
+   5:10   error  'ArrowDown' is defined but never used                                   @typescript-eslint/no-unused-vars
+  73:111  error  Comments inside children section of tag should be placed inside braces  react/jsx-no-comment-textnodes
+  97:36   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`         react/no-unescaped-entities
+  97:40   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`         react/no-unescaped-entities
+
+C:\Dev\portfolio-page-noor-latif-nextjs\components\skills-certifications-section.tsx
+   4:32  error  'Terminal' is defined but never used                                    @typescript-eslint/no-unused-vars
+  29:84  error  Comments inside children section of tag should be placed inside braces  react/jsx-no-comment-textnodes
+
+✖ 14 problems (14 errors, 0 warnings)
+

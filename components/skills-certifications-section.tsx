@@ -20,23 +20,25 @@ export function SkillsCertificationsSection() {
   const focusTags = ["Automation", "Site Reliability", "Industrial IoT"]
 
   return (
-    <section id="skills" className="py-24 px-4">
+    <section id="skills" className="py-24 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold">Core Competencies & Certifications</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Technical expertise spanning infrastructure automation, IoT systems, and site reliability engineering
+          <h2 className="text-4xl md:text-5xl font-bold font-mono">
+            Core Competencies
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-mono">
+            Technical expertise spanning infrastructure automation, IoT systems, and SRE
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {/* Technical Skills Card */}
-          <div className="md:col-span-2 glass-strong rounded-2xl p-8 border border-nordic-accent/20 hover:border-nordic-accent/40 transition-all duration-300">
+          <div className="md:col-span-2 terminal-card p-8 group">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-nordic-accent/10">
-                <Code2 className="w-5 h-5 text-nordic-accent" />
+              <div className="p-2 rounded bg-primary/10">
+                <Code2 className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="text-2xl font-semibold text-nordic-accent">Technical Skills</h3>
+              <h3 className="text-2xl font-semibold text-primary font-mono">Technical Skills</h3>
             </div>
             <TooltipProvider>
               <div className="flex flex-wrap gap-3">
@@ -45,21 +47,21 @@ export function SkillsCertificationsSection() {
                     <Tooltip key={skill.name}>
                       <TooltipTrigger>
                         <Badge
-                          variant="secondary"
-                          className="text-sm py-2.5 px-4 bg-secondary/60 hover:bg-nordic-accent/20 hover:border-nordic-accent hover:scale-105 transition-all duration-200 cursor-help"
+                          variant="outline"
+                          className="text-sm py-2 px-4 font-mono border-primary/30 hover:bg-primary/10 hover:border-primary transition-all duration-200 cursor-help rounded-none"
                         >
                           {skill.name}
                         </Badge>
                       </TooltipTrigger>
-                      <TooltipContent>
-                        <p className="font-mono text-xs">{skill.tooltip}</p>
+                      <TooltipContent className="bg-card border-primary/20 text-primary font-mono text-xs">
+                        <p>{skill.tooltip}</p>
                       </TooltipContent>
                     </Tooltip>
                   ) : (
                     <Badge
                       key={skill.name}
-                      variant="secondary"
-                      className="text-sm py-2.5 px-4 bg-secondary/60 hover:bg-nordic-accent/20 hover:border-nordic-accent hover:scale-105 transition-all duration-200"
+                      variant="outline"
+                      className="text-sm py-2 px-4 font-mono border-primary/30 hover:bg-primary/10 hover:border-primary transition-all duration-200 rounded-none"
                     >
                       {skill.name}
                     </Badge>
@@ -70,40 +72,41 @@ export function SkillsCertificationsSection() {
           </div>
 
           {/* Certifications & Focus Card */}
-          <div className="glass-strong rounded-2xl p-8 border border-nordic-accent/20 hover:border-nordic-accent/40 transition-all duration-300 space-y-8">
+          <div className="terminal-card p-8 space-y-8 group">
             {/* Certifications */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-nordic-accent/10">
-                  <Award className="w-5 h-5 text-nordic-accent" />
+                <div className="p-2 rounded bg-secondary/10">
+                  <Award className="w-5 h-5 text-secondary" />
                 </div>
-                <h3 className="text-xl font-semibold text-nordic-accent">Certifications</h3>
+                <h3 className="text-xl font-semibold text-secondary font-mono">Certifications</h3>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-4 font-mono text-sm">
                 {certifications.map((cert) => (
-                  <div key={cert} className="flex items-start gap-3 group">
-                    <div className="w-2 h-2 rounded-full bg-nordic-accent mt-2 flex-shrink-0 group-hover:scale-125 transition-transform" />
-                    <p className="text-sm leading-relaxed">{cert}</p>
+                  <div key={cert} className="flex items-start gap-3 group/item">
+                    <span className="text-secondary mt-0.5 opacity-50 group-hover/item:opacity-100 transition-opacity">*</span>
+                    <p className="leading-relaxed text-muted-foreground group-hover/item:text-foreground transition-colors">{cert}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <Separator className="bg-nordic-accent/20" />
+            <Separator className="bg-border/50" />
 
             {/* Focus Areas */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-nordic-accent/10">
-                  <Target className="w-5 h-5 text-nordic-accent" />
+                <div className="p-2 rounded bg-accent/10">
+                  <Target className="w-5 h-5 text-accent" />
                 </div>
-                <h3 className="text-xl font-semibold text-nordic-accent">Focus Areas</h3>
+                <h3 className="text-xl font-semibold text-accent font-mono">Focus Areas</h3>
               </div>
               <div className="flex flex-wrap gap-3">
                 {focusTags.map((tag) => (
                   <Badge
                     key={tag}
-                    className="text-sm py-2.5 px-4 bg-nordic-accent/10 text-nordic-accent border-nordic-accent/50 hover:bg-nordic-accent/20 hover:scale-105 transition-all duration-200"
+                    variant="outline"
+                    className="text-sm py-1.5 px-3 font-mono border-accent/30 text-accent hover:bg-accent/10 hover:border-accent transition-all duration-200 rounded-none"
                   >
                     {tag}
                   </Badge>

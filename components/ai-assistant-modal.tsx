@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, Component, type ReactNode, type ErrorInfo } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -20,15 +20,15 @@ interface Message {
   content: string
 }
 
-class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; message?: string }> {
-  constructor(props: { children: React.ReactNode }) {
+class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; message?: string }> {
+  constructor(props: { children: ReactNode }) {
     super(props)
     this.state = { hasError: false }
   }
   static getDerivedStateFromError(error: Error) {
     return { hasError: true, message: error?.message }
   }
-  componentDidCatch(error: Error, info: React.ErrorInfo) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     console.error("[AI Modal] Markdown render error:", error, info)
   }
   render() {
@@ -400,12 +400,12 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
     setMessages([])
     setStreamingMessage("")
     setError(null)
-    
+
     // Scroll to top of messages container to focus the response area
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = 0
     }
-    
+
     await sendMessage(question)
   }
 
@@ -462,11 +462,10 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                       className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                     >
                       <div
-                        className={`max-w-[85%] sm:max-w-[75%] rounded-lg px-4 py-3 sm:px-5 sm:py-4 ${
-                          message.role === "user"
-                            ? "bg-nordic-accent/10 border border-nordic-accent/30 text-foreground"
-                            : "bg-background/60 border border-nordic-accent/20 text-foreground"
-                        }`}
+                        className={`max-w-[85%] sm:max-w-[75%] rounded-lg px-4 py-3 sm:px-5 sm:py-4 ${message.role === "user"
+                          ? "bg-nordic-accent/10 border border-nordic-accent/30 text-foreground"
+                          : "bg-background/60 border border-nordic-accent/20 text-foreground"
+                          }`}
                       >
                         {message.role === "assistant" ? (
                           <ErrorBoundary>
@@ -591,7 +590,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                     <Button
                       onClick={handleCustomQuestion}
                       disabled={isLoading || !customQuestion.trim()}
-                      className="bg-nordic-accent/10 hover:bg-nordic-accent/20 border border-nordic-accent/30 hover:border-nordic-accent/60 text-nordic-accent h-10 sm:h-11 px-4 sm:px-5 transition-all"
+                      className="bg-nordic-accent/10 hover:bg-nordic-accent/20 border border-nordic-accent/30 hover:border-nordic-accent/60 text-nordic-accent h-10 sm:h-11 px-4 sm:px-5 transition-all cursor-pointer"
                     >
                       <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </Button>
@@ -610,7 +609,7 @@ export function AIAssistantModal({ projectId, onClose }: AIAssistantModalProps) 
                           border-nordic-accent/20 hover:bg-nordic-accent/5 hover:border-nordic-accent/60 
                           transition-all duration-200 text-xs sm:text-sm font-medium
                           shadow-sm hover:shadow-md hover:shadow-nordic-accent/10
-                          whitespace-normal break-words leading-relaxed"
+                          whitespace-normal break-words leading-relaxed cursor-pointer"
                         disabled={isLoading}
                       >
                         {question}

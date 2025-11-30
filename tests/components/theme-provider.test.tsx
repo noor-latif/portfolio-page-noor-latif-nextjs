@@ -1,5 +1,6 @@
+import React from 'react'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { ThemeProvider } from '@/components/theme-provider'
 import { useTheme } from 'next-themes'
 

@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { AIAssistantModal } from "@/components/ai-assistant-modal"
-import { Sparkles } from "lucide-react"
+import { Sparkles, FolderOpen, ChevronRight } from "lucide-react"
 
 interface CaseStudy {
   id: string
@@ -43,12 +43,14 @@ export function CaseStudiesSection() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
 
   return (
-    <section id="case-studies" className="py-20 px-4">
+    <section id="case-studies" className="py-20 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold">Projects & Case Studies</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Real-world projects with measurable results across automation, IoT, and infrastructure
+          <h2 className="text-4xl md:text-5xl font-bold font-mono">
+            Case Studies
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-mono">
+            Real-world projects with measurable results
           </p>
         </div>
 
@@ -56,25 +58,29 @@ export function CaseStudiesSection() {
           {caseStudies.map((study) => (
             <Card
               key={study.id}
-              className="glass-strong border-nordic-accent/30 hover:border-nordic-accent transition-all duration-300 hover:shadow-lg hover:shadow-nordic-accent/20 flex flex-col"
+              className="terminal-card flex flex-col group border-primary/20 hover:border-primary/50 bg-card/50 backdrop-blur-sm"
             >
               <CardHeader>
                 {/* Prominent Metric */}
-                <div className="mb-4 p-4 rounded-lg bg-nordic-accent/10 border border-nordic-accent/30">
-                  <p className="text-3xl font-mono font-bold text-nordic-accent text-center leading-tight">
+                <div className="mb-4 p-4 rounded bg-primary/5 border border-primary/10 group-hover:border-primary/30 transition-colors">
+                  <p className="text-2xl font-mono font-bold text-primary leading-tight">
                     {study.metric}
                   </p>
                 </div>
 
-                <CardTitle className="text-xl font-semibold leading-snug">{study.title}</CardTitle>
-                <CardDescription className="text-base leading-relaxed">{study.summary}</CardDescription>
+                <CardTitle className="text-xl font-semibold leading-snug font-mono group-hover:text-primary transition-colors">
+                  {study.title}
+                </CardTitle>
+                <CardDescription className="text-base leading-relaxed font-mono">
+                  {study.summary}
+                </CardDescription>
               </CardHeader>
 
-              <CardContent className="space-y-4 mt-auto">
+              <CardContent className="space-y-6 mt-auto">
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2">
                   {study.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs border-nordic-accent/50 text-nordic-accent">
+                    <Badge key={tag} variant="outline" className="text-xs font-mono border-secondary/30 text-secondary hover:bg-secondary/10 rounded-none">
                       {tag}
                     </Badge>
                   ))}
@@ -83,10 +89,12 @@ export function CaseStudiesSection() {
                 {/* AI Assistant Button */}
                 <Button
                   onClick={() => setSelectedProject(study.id)}
-                  className="w-full bg-nordic-accent text-white hover:bg-nordic-accent-hover font-semibold transition-all group"
+                  variant="outline"
+                  className="w-full border-primary/50 text-primary hover:bg-primary/10 font-mono transition-all group/btn rounded-md"
                 >
-                  <Sparkles className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform" />
-                  Deep Dive with AI
+                  <Sparkles className="w-4 h-4 mr-2 group-hover/btn:text-yellow-400 transition-colors" />
+                  <span>Analyze with AI</span>
+                  <ChevronRight className="w-4 h-4 ml-auto opacity-0 group-hover/btn:opacity-100 transition-opacity" />
                 </Button>
               </CardContent>
             </Card>
