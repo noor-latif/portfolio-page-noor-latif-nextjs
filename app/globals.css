@@ -1,8 +1,32 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Custom dark mode variant for Tailwind v4 */
 @custom-variant dark (&:is(.dark *));
 
+/* ============================================
+   TWEAKCN THEME CONFIGURATION
+   ============================================
+   
+   To use TweakCN-generated themes:
+   1. Visit https://tweakcn.com/
+   2. Design your theme (light and dark modes)
+   3. Click the "{ } Code" button in the top right
+   4. Select "Tailwind v4" and "HSL" format
+   5. Copy the generated code
+   6. Replace the :root and .dark sections below with the TweakCN code
+   
+   IMPORTANT: When pasting TweakCN code:
+   - Keep the @custom-variant declaration above
+   - Replace only the :root and .dark variable blocks
+   - Preserve any custom variables below (like --nordic-accent)
+   - Ensure the .dark selector is used (not .dark:root)
+*/
+
+/* ============================================
+   START: TWEAKCN-GENERATED LIGHT MODE THEME
+   Replace this :root block with TweakCN export
+   ============================================ */
 :root {
   /* Terminal Theme - Light Mode (Soft Paper/Light Terminal) */
   --background: oklch(0.98 0.01 240);
@@ -46,10 +70,15 @@
   --sidebar-accent-foreground: oklch(0.25 0.02 240);
   --sidebar-border: oklch(0.88 0.02 240);
   --sidebar-ring: oklch(0.65 0.15 240);
-  
-  --nordic-accent: oklch(0.65 0.15 200); /* Cyan/Ice Blue */
 }
+/* ============================================
+   END: TWEAKCN-GENERATED LIGHT MODE THEME
+   ============================================ */
 
+/* ============================================
+   START: TWEAKCN-GENERATED DARK MODE THEME
+   Replace this .dark block with TweakCN export
+   ============================================ */
 .dark {
   /* Terminal Theme - Dark Mode (Deep Void/Cyberpunk) */
   --background: oklch(0.12 0.02 260); /* Deep Navy/Black */
@@ -90,8 +119,21 @@
   --sidebar-accent-foreground: oklch(0.92 0.02 260);
   --sidebar-border: oklch(0.25 0.05 260);
   --sidebar-ring: oklch(0.70 0.15 240);
-  
-  --nordic-accent: oklch(0.75 0.15 200); /* Cyan/Ice Blue */
+}
+/* ============================================
+   END: TWEAKCN-GENERATED DARK MODE THEME
+   ============================================ */
+
+/* ============================================
+   CUSTOM PROJECT-SPECIFIC VARIABLES
+   These are preserved and should NOT be replaced by TweakCN
+   ============================================ */
+:root {
+  --nordic-accent: oklch(0.65 0.15 200); /* Cyan/Ice Blue - Custom project variable */
+}
+
+.dark {
+  --nordic-accent: oklch(0.75 0.15 200); /* Cyan/Ice Blue - Custom project variable */
 }
 
 @theme inline {
